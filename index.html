@@ -934,7 +934,7 @@ function vTest(){
   }
   const steps='<div class="steps" aria-label="Paso '+s+' de '+N+'">'+Array.from({length:N},(_,i)=>'<i class="'+(i<s?'on':'')+'"></i>').join('')+'</div>';
   const nav='<div class="row between">'+(s>1?'<button class="btn" data-act="tPaso" data-v="'+(s-1)+'">Atrás</button>':(ui.forceTest?'<button class="btn ghost" data-act="tCancel">Cancelar</button>':'<span></span>'))+(s<N?'<button class="btn primary" data-act="tPaso" data-v="'+(s+1)+'">Siguiente</button>':'<button class="btn primary big" style="width:auto" data-act="tFin">Empezar</button>')+'</div>';
-  return '<div class="stack" style="max-width:640px;margin:0 auto"><div><div class="eyebrow">Forja Gym · Test inicial · '+s+' de '+N+'</div><h1>'+(S.perfil.onboarded?'Repite tu test':'Vamos a hacer tu plan')+'</h1></div>'+steps+'<div class="card stack">'+body+'</div>'+nav+'</div>';
+  return '<div class="stack" style="max-width:640px;margin:0 auto"><div><div class="eyebrow">Forja Gym · Test inicial · '+s+' de '+N+'</div><h1>'+(S.perfil.onboarded?'Repite tu test':'Vamos a hacer tu plan')+'</h1>'+(CLOUD&&session?'<div class="row small muted" style="margin-top:6px">Cuenta: <b style="color:var(--fg)">'+esc(session.user.email||'')+'</b><button class="btn sm ghost" data-act="salir">Cerrar sesión</button></div>':'')+'</div>'+steps+'<div class="card stack">'+body+'</div>'+nav+'</div>';
 }
 function validarPaso(s){
   const t=ui.td;
