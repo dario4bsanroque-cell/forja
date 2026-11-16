@@ -259,9 +259,100 @@ body{background:radial-gradient(900px 380px at 50% -140px,color-mix(in oklab,var
 @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
 </style>
 <style>html,body{margin:0}body{-webkit-tap-highlight-color:transparent}</style>
+<style>
+/* ===== Forja HUD: movimiento (todo se queda quieto si el sistema pide reducir animaciones) ===== */
+/* Temporizador de descanso: reactor */
+.timer .in{gap:12px}
+.timer .reac{position:relative;width:60px;height:60px;flex:none;display:grid;place-items:center}
+.timer .reac svg{position:absolute;inset:0;width:100%;height:100%;transform:rotate(-90deg);overflow:visible}
+.timer .reac circle{fill:none;stroke-width:4.5}
+.timer .reac .rb{stroke:color-mix(in oklab,var(--bg) 18%,var(--chalk))}
+.timer .reac .rf{stroke:var(--yellow);stroke-linecap:round;transition:stroke-dasharray .5s linear;filter:drop-shadow(0 0 5px var(--yellow))}
+.timer .reac .t{position:relative;font-size:1.05rem;min-width:0;line-height:1}
+.timer.fin .reac .rf{stroke:var(--red);filter:drop-shadow(0 0 7px var(--red))}
+.timer.fin .in{animation:reactor .5s ease-in-out infinite alternate}
+@keyframes reactor{from{box-shadow:0 8px 24px rgba(0,0,0,.25),0 0 0 0 color-mix(in oklab,var(--red) 0%,transparent)}to{box-shadow:0 8px 24px rgba(0,0,0,.25),0 0 0 3px color-mix(in oklab,var(--red) 55%,transparent),0 0 30px color-mix(in oklab,var(--red) 50%,transparent)}}
+.timer.over .reac .rf{stroke:#fff;filter:drop-shadow(0 0 8px #fff)}
+.timer.over .in{animation:destello .7s ease-out 1}
+@keyframes destello{0%{box-shadow:0 0 0 0 rgba(255,255,255,.9),0 0 60px 20px var(--green)}100%{box-shadow:0 8px 24px rgba(0,0,0,.25)}}
+
+/* Mapa muscular holográfico: escáner de cabeza a pies y músculos que se encienden uno detrás de otro */
+.body-pair figure{position:relative;overflow:hidden}
+svg.body .sil{fill:color-mix(in oklab,var(--skin) 80%,transparent);stroke:color-mix(in oklab,var(--accent) 35%,var(--skin-line));stroke-width:.6}
+:root[data-theme="dark"] svg.body,:root:not([data-theme="light"]) svg.body{filter:drop-shadow(0 0 10px color-mix(in oklab,var(--accent) 22%,transparent))}
+@media (prefers-color-scheme: light){:root:not([data-theme="dark"]) svg.body{filter:none}}
+#app.enter svg.body .m{animation:musculo .45s cubic-bezier(.2,.8,.2,1) both;animation-delay:calc(120ms + var(--i,0) * 28ms)}
+@keyframes musculo{from{opacity:0;filter:brightness(2.2)}}
+#app.enter .body-pair figure::after{content:"";position:absolute;left:-10%;right:-10%;height:46px;top:-50px;pointer-events:none;
+  background:linear-gradient(180deg,transparent,color-mix(in oklab,var(--accent) 30%,transparent) 70%,var(--accent) 96%,transparent);
+  filter:blur(.3px);animation:escaneo 1.25s cubic-bezier(.45,0,.25,1) .05s both}
+@keyframes escaneo{from{transform:translateY(0);opacity:1}88%{opacity:1}to{transform:translateY(calc(100% + 520px));opacity:0}}
+
+/* Récord personal */
+.impacto{position:fixed;inset:0;z-index:58;pointer-events:none;display:grid;place-items:center;animation:impFlash 1.7s ease-out forwards}
+@keyframes impFlash{0%{background:rgba(255,201,60,.55)}12%{background:rgba(255,106,43,.18)}100%{background:transparent}}
+.impacto::before{content:"";position:absolute;left:50%;top:50%;width:min(560px,130vw);height:260px;transform:translate(-50%,-50%);background:radial-gradient(closest-side,rgba(10,6,4,.78),transparent);animation:impVelo 1.7s ease forwards}
+@keyframes impVelo{0%,75%{opacity:1}100%{opacity:0}}
+.imp-in{position:relative;text-align:center;color:#fff;text-shadow:0 4px 30px rgba(0,0,0,.6),0 0 40px var(--accent);animation:impGolpe 1.7s cubic-bezier(.2,.8,.2,1) forwards}
+.imp-in span{display:block;font-family:var(--display);font-weight:700;letter-spacing:.2em;text-transform:uppercase;font-size:.95rem;color:#ffc93c}
+.imp-in b{display:block;font-family:var(--display);font-weight:800;font-size:clamp(3rem,13vw,5.5rem);line-height:1;font-variant-numeric:tabular-nums}
+.imp-in em{display:block;font-style:normal;font-weight:600;font-size:1.05rem;opacity:.9}
+@keyframes impGolpe{0%{transform:scale(2.4);opacity:0}14%{transform:scale(.94);opacity:1}22%{transform:scale(1)}78%{opacity:1;transform:scale(1)}100%{opacity:0;transform:scale(1.06) translateY(-14px)}}
+#app.sacude{animation:sacude .42s cubic-bezier(.36,.07,.19,.97) both}
+@keyframes sacude{10%,90%{transform:translate3d(-1px,0,0)}20%,80%{transform:translate3d(3px,0,0)}30%,50%,70%{transform:translate3d(-5px,1px,0)}40%,60%{transform:translate3d(5px,-1px,0)}}
+
+/* Subida de nivel */
+.fx-sube{position:relative;overflow:hidden}
+.fx-lvl{position:relative;height:120px;display:grid;place-items:center;margin:-6px 0 2px}
+.fx-lvl b{position:relative;font-family:var(--display);font-weight:800;font-size:5.6rem;line-height:1;color:#fff;text-shadow:0 0 30px #ff6a2b,0 0 70px rgba(255,106,43,.6);animation:lvlGolpe .8s cubic-bezier(.2,.9,.2,1.2) .15s both}
+@keyframes lvlGolpe{0%{transform:scale(3);opacity:0;filter:blur(8px)}60%{transform:scale(.9);opacity:1;filter:none}100%{transform:scale(1)}}
+.fx-lvl i{position:absolute;left:50%;top:50%;width:110px;height:110px;margin:-55px 0 0 -55px;border-radius:50%;border:2px solid #ffc93c;opacity:0;animation:onda 1.4s ease-out both}
+.fx-lvl i:nth-child(2){animation-delay:.35s;border-color:#ff6a2b}.fx-lvl i:nth-child(3){animation-delay:.6s;border-color:#fff}
+@keyframes onda{0%{transform:scale(.4);opacity:.95}100%{transform:scale(2.2);opacity:0}}
+
+/* Barra de experiencia con chispa en la punta */
+.xpbar{position:relative;overflow:visible}
+.xpbar i{position:relative;transform-origin:left;animation:brillo 3s linear infinite,xpLlena 1.1s cubic-bezier(.2,.8,.2,1) both}
+@keyframes xpLlena{from{transform:scaleX(0)}}
+.xpbar i::after{content:"";position:absolute;right:-3px;top:50%;width:10px;height:10px;margin-top:-5px;border-radius:50%;background:#fff;box-shadow:0 0 8px 2px #ffc93c,0 0 18px 6px color-mix(in oklab,var(--accent) 60%,transparent);animation:chispa 1.6s ease-in-out infinite}
+@keyframes chispa{50%{transform:scale(.55);opacity:.7}}
+
+/* Gráfica de peso que se dibuja sola */
+.chart .trazo{stroke-dasharray:1;stroke-dashoffset:0;filter:drop-shadow(0 0 4px color-mix(in oklab,var(--accent) 50%,transparent))}
+#app.enter .chart .trazo{animation:trazo 1.4s cubic-bezier(.45,0,.2,1) .1s both}
+@keyframes trazo{from{stroke-dashoffset:1}}
+#app.enter .chart .area{animation:aparece .6s ease 1.1s both}
+#app.enter .chart .pt{animation:aparece .2s ease both;animation-delay:calc(.1s + var(--k) * 1.3s)}
+#app.enter .chart .ult{animation:aparece .3s ease 1.45s both}
+@keyframes aparece{from{opacity:0}}
+.chart .ult-onda{fill:none;stroke:var(--accent);stroke-width:2;transform-box:fill-box;transform-origin:center;animation:ultOnda 2s ease-out 1.6s infinite}
+@keyframes ultOnda{0%{transform:scale(1);opacity:.9}100%{transform:scale(3.4);opacity:0}}
+
+@media (prefers-reduced-motion: reduce){
+  .timer.fin .in,.timer.over .in,#app.enter svg.body .m,#app.enter .body-pair figure::after,.impacto,.impacto::before,.imp-in,#app.sacude,.fx-lvl b,.fx-lvl i,.xpbar i,.xpbar i::after,
+  #app.enter .chart .trazo,#app.enter .chart .area,#app.enter .chart .pt,#app.enter .chart .ult,.chart .ult-onda{animation:none!important}
+  .fx-lvl i,.chart .ult-onda,#app.enter .body-pair figure::after{display:none}
+}
+/* Reactor que gira y emite pulsos */
+.timer .reac .giro,.timer .reac .giro2{transform-box:fill-box;transform-origin:center}
+.timer .reac .giro{animation:giraR 6s linear infinite}
+.timer .reac .giro2{animation:giraR 3.5s linear infinite reverse}
+.timer .reac .seg{fill:none;stroke:color-mix(in oklab,var(--yellow) 70%,transparent);stroke-width:1.5;stroke-dasharray:6 4 18 4 3 4;opacity:.8}
+.timer .reac .seg2{fill:none;stroke:color-mix(in oklab,var(--yellow) 45%,transparent);stroke-width:1;stroke-dasharray:2 3}
+@keyframes giraR{to{transform:rotate(360deg)}}
+.timer .reac .pulso{position:absolute;inset:4px;border-radius:50%;border:2px solid var(--yellow);opacity:0;pointer-events:none}
+.timer.fin .reac .giro{animation-duration:1.6s}.timer.fin .reac .seg,.timer.fin .reac .seg2{stroke:var(--red)}
+.timer.fin .reac .pulso{border-color:var(--red);animation:pulsoR 1s ease-out infinite}
+@keyframes pulsoR{0%{transform:scale(.9);opacity:.9}100%{transform:scale(1.7);opacity:0}}
+.timer.over .reac .seg,.timer.over .reac .seg2{stroke:rgba(255,255,255,.8)}
+#fuego{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:57}
+#brasas{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:-1}
+@media (prefers-reduced-motion: reduce){.timer .reac .giro,.timer .reac .giro2,.timer.fin .reac .pulso{animation:none!important}#brasas,#fuego{display:none}}
+</style>
 </head>
 <body>
 
+<canvas id="brasas" aria-hidden="true"></canvas>
 <div class="wrap" id="app"></div>
 <div id="timer" hidden></div>
 <nav class="tabs" aria-label="Secciones"><div class="in" id="tabs"></div></nav>
@@ -467,7 +558,7 @@ async function pull(){
   }catch(e){ setSync('error'); if(!ui.loaded&&S.owner===session.user.id){ ui.loaded=true; render(); } }
   finally{ pulling=false; }
 }
-async function init(){
+async function init(){ try{brasas()}catch(e){}
   if(!CLOUD){ setSync('local'); return; }
   try{
     sb = window.supabase.createClient(CFG.url, CFG.key, {auth:{persistSession:true,autoRefreshToken:true,storageKey:'forja.auth'}});
@@ -534,11 +625,50 @@ function confeti(n){
     ps.forEach(p=>{p.vy+=.38;p.x+=p.vx;p.y+=p.vy;p.vx*=.99;p.r+=p.vr;g.save();g.globalAlpha=Math.max(0,1-k*k);g.translate(p.x,p.y);g.rotate(p.r);g.fillStyle=p.c;g.fillRect(-p.s/2,-p.s/3,p.s,p.s*.66);g.restore()});
     requestAnimationFrame(f)})(t0);
 }
+function impacto(ej,marca){ // récord: destello, sacudida y la marca que «golpea» la pantalla
+  try{navigator.vibrate&&navigator.vibrate([40,30,120])}catch(e){}
+  if(sinMov()) return;
+  const el=document.createElement('div');el.className='impacto';el.setAttribute('aria-hidden','true');
+  el.innerHTML='<div class="imp-in"><span>Récord personal</span><b>'+esc(marca)+'</b><em>'+esc(ej)+'</em></div>';
+  document.body.appendChild(el);const ap=$('#app');ap.classList.remove('sacude');void ap.offsetWidth;ap.classList.add('sacude');
+  setTimeout(()=>{el.remove();ap.classList.remove('sacude')},1700);
+}
+function fuego(){ // récord: brasas que suben y chispas que saltan desde el centro
+  if(sinMov()) return; let c=document.getElementById('fuego');
+  if(!c){c=document.createElement('canvas');c.id='fuego';c.setAttribute('aria-hidden','true');document.body.appendChild(c)}
+  const dpr=Math.min(2,devicePixelRatio||1),W=innerWidth,H=innerHeight;c.width=W*dpr;c.height=H*dpr;const g=c.getContext('2d');g.setTransform(dpr,0,0,dpr,0,0);
+  const cx=W/2,cy=H*.46,ps=[];
+  for(let i=0;i<70;i++){const a=Math.random()*Math.PI*2,v=4+Math.random()*9;ps.push({x:cx,y:cy,vx:Math.cos(a)*v,vy:Math.sin(a)*v-2,l:0,L:28+Math.random()*30,chispa:true})}
+  const t0=performance.now();c.hidden=false;
+  (function f(t){const k=(t-t0)/2200;if(k>=1){g.clearRect(0,0,W,H);c.hidden=true;return}
+    if(k<.75)for(let i=0;i<9;i++)ps.push({x:cx+(Math.random()-.5)*W*.55,y:H+10,vx:(Math.random()-.5)*.8,vy:-(2.5+Math.random()*4.5),l:0,L:60+Math.random()*70,r:1.5+Math.random()*3.5});
+    g.globalCompositeOperation='source-over';g.clearRect(0,0,W,H);g.globalCompositeOperation='lighter';
+    for(let i=ps.length-1;i>=0;i--){const p=ps[i];p.l++;if(p.l>p.L){ps.splice(i,1);continue}const q=1-p.l/p.L;
+      if(p.chispa){p.vy+=.22;p.vx*=.97;const x0=p.x,y0=p.y;p.x+=p.vx;p.y+=p.vy;g.strokeStyle='rgba(255,'+Math.round(180+60*q)+','+Math.round(90*q)+','+q.toFixed(2)+')';g.lineWidth=2;g.beginPath();g.moveTo(x0,y0);g.lineTo(p.x,p.y);g.stroke()}
+      else{p.vx+=(Math.random()-.5)*.25;p.x+=p.vx;p.y+=p.vy;const r=p.r*(.4+q);const gr=g.createRadialGradient(p.x,p.y,0,p.x,p.y,r*3.2);
+        gr.addColorStop(0,'rgba(255,'+Math.round(170+70*q)+',80,'+(.9*q).toFixed(2)+')');gr.addColorStop(.4,'rgba(255,90,20,'+(.45*q).toFixed(2)+')');gr.addColorStop(1,'rgba(255,40,0,0)');
+        g.fillStyle=gr;g.beginPath();g.arc(p.x,p.y,r*3.2,0,6.283);g.fill()}}
+    requestAnimationFrame(f)})(t0);
+}
+function brasas(){ // fondo vivo: unas pocas brasas que suben despacio (solo en oscuro)
+  const c=document.getElementById('brasas');if(!c||sinMov())return;
+  const g=c.getContext('2d');let W=0,H=0,ps=[],ult=0;
+  const oscuro=()=>{const t=document.documentElement.getAttribute('data-theme');return t?t==='dark':matchMedia('(prefers-color-scheme: dark)').matches};
+  function medir(){const dpr=Math.min(2,devicePixelRatio||1);W=innerWidth;H=innerHeight;c.width=W*dpr;c.height=H*dpr;g.setTransform(dpr,0,0,dpr,0,0);
+    const n=matchMedia('(pointer: coarse)').matches?16:30;while(ps.length<n)ps.push(nueva(true));ps.length=n}
+  function nueva(cualquiera){return {x:Math.random()*W,y:cualquiera?Math.random()*H:H+10,vy:-(.25+Math.random()*.6),f:Math.random()*6.28,r:.8+Math.random()*1.8,a:.25+Math.random()*.45}}
+  medir();addEventListener('resize',medir);
+  (function f(t){requestAnimationFrame(f);if(document.hidden||t-ult<40)return;ult=t;g.clearRect(0,0,W,H);if(!oscuro())return;
+    for(const p of ps){p.y+=p.vy;p.f+=.03;p.x+=Math.sin(p.f)*.3;if(p.y<-10)Object.assign(p,nueva(false));
+      const al=p.a*(.6+.4*Math.sin(p.f*3))*Math.min(1,p.y/(H*.35));g.fillStyle='rgba(255,'+Math.round(110+60*Math.sin(p.f))+',40,'+Math.max(0,al).toFixed(2)+')';
+      g.shadowColor='rgba(255,90,20,.9)';g.shadowBlur=8;g.beginPath();g.arc(p.x,p.y,p.r,0,6.283);g.fill()}
+    g.shadowBlur=0})(0);
+}
 function flotar(txt){ if(sinMov()) return; const el=document.createElement('div');el.className='flot';el.textContent=txt;document.body.appendChild(el);setTimeout(()=>el.remove(),1300) }
 function fiesta(o){
   let el=document.getElementById('fx'); if(!el){el=document.createElement('div');el.id='fx';document.body.appendChild(el)}
   el.hidden=false;
-  el.innerHTML='<div class="fx-in" role="dialog" aria-modal="true" aria-label="'+esc(o.titulo)+'"><div class="eyebrow">'+esc(o.eyebrow||'')+'</div><h1>'+esc(o.titulo)+'</h1>'+(o.sub?'<p>'+esc(o.sub)+'</p>':'')+
+  el.innerHTML='<div class="fx-in'+(o.nivel?' fx-sube':'')+'" role="dialog" aria-modal="true" aria-label="'+esc(o.titulo)+'">'+(o.nivel?'<div class="fx-lvl" aria-hidden="true"><i></i><i></i><i></i><b>'+o.nivel+'</b></div>':'')+'<div class="eyebrow">'+esc(o.eyebrow||'')+'</div><h1>'+esc(o.titulo)+'</h1>'+(o.sub?'<p>'+esc(o.sub)+'</p>':'')+
     (o.kpis?'<div class="kpis">'+o.kpis.map(([v,l])=>'<div class="kpi"><b class="num">'+esc(v)+'</b><span>'+esc(l)+'</span></div>').join('')+'</div>':'')+
     (o.lineas&&o.lineas.length?'<div class="fx-l">'+o.lineas.map(l=>'<div>'+l+'</div>').join('')+'</div>':'')+
     '<button class="btn big primary" data-act="fxCerrar" id="fxOk">'+esc(o.boton||'Seguir')+'</button></div>';
@@ -906,7 +1036,7 @@ function colorRec(v){ // 0 rojo -> 50 amarillo -> 100 verde
 function colorVol(n){ if(n<=0)return 'var(--skin-line)'; if(n<10){const p=Math.round(25+n*6);return 'color-mix(in oklab, var(--accent) '+p+'%, var(--skin))'} if(n<=20)return 'var(--accent)'; return 'var(--red)'; }
 function bodySVG(side,fill){
   const shapes=side==='f'?FRONT:BACK;
-  const half=Object.entries(shapes).map(([m,pts])=>'<polygon class="m'+(ui.sel===m?' sel':'')+'" data-act="selm" data-m="'+m+'" tabindex="0" role="button" aria-label="'+MUSC[m].n+'" points="'+pts+'" style="fill:'+fill(m)+'"><title>'+MUSC[m].n+'</title></polygon>').join('');
+  const half=Object.entries(shapes).map(([m,pts],i)=>'<polygon class="m'+(ui.sel===m?' sel':'')+'" data-act="selm" data-m="'+m+'" tabindex="0" role="button" aria-label="'+MUSC[m].n+'" points="'+pts+'" style="fill:'+fill(m)+';--i:'+i+'"><title>'+MUSC[m].n+'</title></polygon>').join('');
   return '<svg class="body" viewBox="40 6 120 352" aria-label="Mapa muscular '+(side==='f'?'frontal':'trasero')+'">'+
    '<circle class="sil" cx="100" cy="28" r="16"/>'+
    '<polygon class="sil" points="'+SIL+'"/><g transform="translate(200,0) scale(-1,1)"><polygon class="sil" points="'+SIL+'"/></g>'+
@@ -1065,9 +1195,9 @@ function chartPeso(){
   while(d.getTime()<=t1){if(d.getMonth()%every===0){const xx=x(d.getTime());xl+='<line x1="'+xx+'" x2="'+xx+'" y1="'+Tm+'" y2="'+(H-B)+'" stroke="var(--line)" stroke-dasharray="2 4"/><text x="'+xx+'" y="'+(H-8)+'" text-anchor="middle">'+MESES[d.getMonth()]+(d.getMonth()===0||every>1?' '+String(d.getFullYear()).slice(2):'')+'</text>'}d.setMonth(d.getMonth()+1)}
   const obj=OBJ?'<line x1="'+L+'" x2="'+(W-Rm)+'" y1="'+y(OBJ)+'" y2="'+y(OBJ)+'" stroke="var(--red)" stroke-dasharray="6 5" stroke-width="1.5"/>':'';
   const pl=plan.length?'<polyline fill="none" stroke="var(--yellow)" stroke-width="2.5" stroke-dasharray="7 5" points="'+plan.map(p=>x(p.t)+','+y(p.kg)).join(' ')+'"/>':'';
-  const area=pts.length>1?'<polygon fill="color-mix(in oklab,var(--accent) 14%,transparent)" points="'+x(pts[0].t)+','+(H-B)+' '+pts.map(p=>x(p.t)+','+y(p.kg)).join(' ')+' '+x(pts[pts.length-1].t)+','+(H-B)+'"/>':'';
-  const line=pts.length>1?'<polyline fill="none" stroke="var(--accent)" stroke-width="2.5" stroke-linejoin="round" points="'+pts.map(p=>x(p.t)+','+y(p.kg)).join(' ')+'"/>':'';
-  const dots=pts.map((p,i)=>{const last=i===pts.length-1;return '<circle cx="'+x(p.t)+'" cy="'+y(p.kg)+'" r="'+(last?5:3)+'" fill="'+(last?'var(--accent)':'var(--surface)')+'" stroke="var(--accent)" stroke-width="2"><title>'+fmtD(p.f)+': '+fmtKg(p.kg)+' kg</title></circle>'}).join('');
+  const area=pts.length>1?'<polygon class="area" fill="color-mix(in oklab,var(--accent) 14%,transparent)" points="'+x(pts[0].t)+','+(H-B)+' '+pts.map(p=>x(p.t)+','+y(p.kg)).join(' ')+' '+x(pts[pts.length-1].t)+','+(H-B)+'"/>':'';
+  const line=pts.length>1?'<polyline class="trazo" pathLength="1" fill="none" stroke="var(--accent)" stroke-width="2.5" stroke-linejoin="round" points="'+pts.map(p=>x(p.t)+','+y(p.kg)).join(' ')+'"/>':'';
+  const dots=pts.map((p,i)=>{const last=i===pts.length-1;return (last?'<circle class="ult-onda" cx="'+x(p.t)+'" cy="'+y(p.kg)+'" r="5"/>':'')+'<circle class="'+(last?'ult':'pt')+'" style="--k:'+(pts.length>1?i/(pts.length-1):1).toFixed(3)+'" cx="'+x(p.t)+'" cy="'+y(p.kg)+'" r="'+(last?5:3)+'" fill="'+(last?'var(--accent)':'var(--surface)')+'" stroke="var(--accent)" stroke-width="2"><title>'+fmtD(p.f)+': '+fmtKg(p.kg)+' kg</title></circle>'}).join('');
   const lp=pts[pts.length-1];const lab=lp?'<text x="'+Math.min(x(lp.t)+8,W-Rm-30)+'" y="'+(y(lp.kg)-9)+'" style="fill:var(--fg);font-weight:700">'+fmtKg(lp.kg)+'</text>':'';
   return '<div class="chart"><svg viewBox="0 0 '+W+' '+H+'" role="img" aria-label="Gráfica de peso corporal">'+g+xl+area+obj+pl+line+dots+lab+'</svg></div>';
 }
@@ -1200,7 +1330,7 @@ function render(){
   if(CLOUD&&!ui.loaded){ $('#app').innerHTML='<div class="empty" style="margin-top:18vh">Cargando tu cuenta…</div>'; renderTabs(); return; }
   if(ui.forceTest||!S.perfil.onboarded){ ui.enTest=true; const fo0=document.activeElement&&document.activeElement.id; $('#app').innerHTML=vTest(); renderTabs(); $('#timer').hidden=true; if(fo0){const el=document.getElementById(fo0);if(el&&el.tagName==='INPUT')el.focus()} return; }
   const C=computeAll(), X=xpInfo(C);
-  if(ui.lastL!=null&&X.L>ui.lastL&&!ui.silencioNivel) fiesta({eyebrow:'Subes de nivel',titulo:'Nivel '+X.L,sub:'Rango: '+rango(X.L),sfx:'pr'});
+  if(ui.lastL!=null&&X.L>ui.lastL&&!ui.silencioNivel) fiesta({eyebrow:'Subes de nivel',titulo:'Nivel '+X.L,sub:'Rango: '+rango(X.L),sfx:'pr',nivel:X.L});
   ui.lastL=X.L; ui.silencioNivel=false;
   const y=window.scrollY;
   const v=ui.view;
@@ -1218,13 +1348,20 @@ let actx=null;
 function beep(){try{actx=actx||new (window.AudioContext||window.webkitAudioContext)();[0,0.25,0.5].forEach((d,i)=>{const o=actx.createOscillator(),g=actx.createGain();o.frequency.value=i===2?1175:880;o.connect(g);g.connect(actx.destination);const t=actx.currentTime+d;g.gain.setValueAtTime(0.0001,t);g.gain.exponentialRampToValueAtTime(0.35,t+0.02);g.gain.exponentialRampToValueAtTime(0.0001,t+0.2);o.start(t);o.stop(t+0.22)})}catch(e){}try{navigator.vibrate&&navigator.vibrate([250,120,250])}catch(e){}}
 function startTimer(sec,label){timer={end:Date.now()+sec*1000,total:sec,label,beeped:false};renderTimer()}
 function renderTimer(){
-  const el=$('#timer');if(!timer){el.hidden=true;el.className='';return}
+  const el=$('#timer');if(!timer){el.hidden=true;el.className='';el.innerHTML='';return}
   const left=Math.ceil((timer.end-Date.now())/1000);const over=left<=0;
   if(over&&!timer.beeped){timer.beeped=true;beep()}
-  if(left<-90){timer=null;el.hidden=true;return}
+  if(left<-90){timer=null;el.hidden=true;el.innerHTML='';return}
   const m=Math.floor(Math.abs(left)/60),s=Math.abs(left)%60;const pct=clamp((1-left/timer.total)*100,0,100);
-  el.hidden=false;el.className='timer'+(over?' over':'');
-  el.innerHTML='<div class="in" role="timer" aria-live="off"><span class="t">'+(over?'+':'')+m+':'+pad(s)+'</span><div class="lab"><b>'+(over?'¡Siguiente serie!':'Descanso')+'</b> · '+esc(timer.label)+'<div class="bar"><i style="width:'+pct+'%"></i></div></div><button data-act="tAdd" data-s="-15" aria-label="Quitar 15 segundos">−15</button><button data-act="tAdd" data-s="15" aria-label="Añadir 15 segundos">+15</button><button data-act="tStop">'+(over?'OK':'Saltar')+'</button></div>';
+  el.hidden=false;el.className='timer'+(over?' over':'')+(!over&&left<=10?' fin':'');
+  if(!el.querySelector('.reac')){
+    el.innerHTML='<div class="in" role="timer" aria-live="off"><span class="reac" aria-hidden="true"><svg viewBox="0 0 60 60"><g class="giro"><circle class="seg" cx="30" cy="30" r="29" pathLength="100"/></g><g class="giro2"><circle class="seg2" cx="30" cy="30" r="20" pathLength="100"/></g><circle class="rb" cx="30" cy="30" r="25"/><circle class="rf" cx="30" cy="30" r="25" pathLength="100"/></svg><i class="pulso"></i><span class="t"></span></span><div class="lab"><b class="tt"></b> · <span class="tl"></span></div><button data-act="tAdd" data-s="-15" aria-label="Quitar 15 segundos">−15</button><button data-act="tAdd" data-s="15" aria-label="Añadir 15 segundos">+15</button><button data-act="tStop" class="tb"></button></div>';
+  }
+  el.querySelector('.t').textContent=(over?'+':'')+m+':'+pad(s);
+  el.querySelector('.rf').style.strokeDasharray=(over?100:Math.max(0,100-pct)).toFixed(1)+' 100';
+  el.querySelector('.tt').textContent=over?'¡Siguiente serie!':'Descanso';
+  el.querySelector('.tl').textContent=timer.label;
+  el.querySelector('.tb').textContent=over?'OK':'Saltar';
 }
 setInterval(()=>{if(timer)renderTimer();const e=document.querySelector('[data-elapsed]');const a=activo();if(e&&a)e.textContent=Math.floor((Date.now()-a.inicio)/60000)+' min'},500);
 let wl=null;async function wake(){try{if(activo()&&!wl&&navigator.wakeLock){wl=await navigator.wakeLock.request('screen');wl.addEventListener('release',()=>wl=null)}else if(!activo()&&wl){wl.release();wl=null}}catch(e){}}
@@ -1325,7 +1462,7 @@ document.addEventListener('submit',ev=>{
     const quedan=ej.series_obj-ej.series.length;
     startTimer(e.d,e.n+(quedan>0?' · quedan '+quedan:' · ejercicio completo'));
     const okMin=r>=ej.rmin;
-    if(pr){toast('¡Récord personal en '+e.n+'! +50 XP');confeti(70);sonido('pr');flotar('+'+((okMin?15:10)+50)+' XP')}
+    if(pr){toast('¡Récord personal en '+e.n+'! +50 XP');impacto(e.n,fmtKg(p)+' kg × '+r);fuego();sonido('pr');flotar('+'+((okMin?15:10)+50)+' XP')}
     else {sonido('set');flotar('+'+(okMin?15:10)+' XP')}
     render();return}
   if(k==='peso'){const v=parseFloat(String($('#pesoHoy').value).replace(',','.'));if(!(v>=40&&v<=200)){toast('Escribe un peso entre 40 y 200 kg.');return}savePeso(hoyK(),Math.round(v*10)/10);toast('Peso guardado');render();return}
