@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Forja Gym</title>
-<meta name="theme-color" content="#111418">
+<meta name="theme-color" content="#17110d">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -21,7 +21,7 @@
 /* Layout: app de una columna para el móvil en el gimnasio, barra de pestañas fija abajo; colores de discos olímpicos como semántica (rojo 25, amarillo 15, verde 10, azul 20). */
 :root{
   --bg:#eef0f3; --surface:#ffffff; --surface2:#f5f6f8; --line:#d9dde3; --fg:#14171c; --muted:#5d6672;
-  --accent:#1d4fd8; --accent-ink:#ffffff; --accent-soft:#dfe7fb;
+  --accent:#e8490f; --accent2:#c81e1e; --accent-ink:#ffffff; --accent-soft:#fde6da;
   --red:#d0312d; --yellow:#e0a100; --green:#1e9e57; --blue:#1d4fd8;
   --skin:#cfd4db; --skin-line:#b9c0c9; --chalk:#14171c;
   --display:"Barlow Condensed","Arial Narrow",Arial,sans-serif;
@@ -30,12 +30,12 @@
 }
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
   --bg:#111418; --surface:#1a1e24; --surface2:#21262d; --line:#2e353e; --fg:#eef1f4; --muted:#9aa4b0;
-  --accent:#5b8cff; --accent-ink:#0b1020; --accent-soft:#1f2b48;
+  --accent:#ff6a2b; --accent2:#e02d2d; --accent-ink:#ffffff; --accent-soft:#3a2016;
   --red:#ff5a52; --yellow:#f2be2e; --green:#3cc77a; --blue:#5b8cff;
   --skin:#353c46; --skin-line:#454e5a; --chalk:#eef1f4; color-scheme:dark}}
 :root[data-theme="dark"]{
   --bg:#111418; --surface:#1a1e24; --surface2:#21262d; --line:#2e353e; --fg:#eef1f4; --muted:#9aa4b0;
-  --accent:#5b8cff; --accent-ink:#0b1020; --accent-soft:#1f2b48;
+  --accent:#ff6a2b; --accent2:#e02d2d; --accent-ink:#ffffff; --accent-soft:#3a2016;
   --red:#ff5a52; --yellow:#f2be2e; --green:#3cc77a; --blue:#5b8cff;
   --skin:#353c46; --skin-line:#454e5a; --chalk:#eef1f4; color-scheme:dark}
 *{box-sizing:border-box}
@@ -185,6 +185,77 @@ svg.body .m.sel{stroke:var(--fg);stroke-width:2}
 .chk input{width:20px;height:20px;flex:none;accent-color:var(--accent)}
 .li select{width:auto;max-width:46%;min-height:36px;font-size:.82rem}
 @media (max-width:420px){h1{font-size:1.7rem}.kpi b{font-size:1.4rem}.mrow{grid-template-columns:minmax(0,7rem) 1fr 3rem}}
+[hidden]{display:none!important}
+/* ---- v3: más vistosa ---- */
+body{background:radial-gradient(900px 380px at 50% -140px,color-mix(in oklab,var(--accent) 22%,var(--bg)),var(--bg)) no-repeat,var(--bg)}
+.hero{background:linear-gradient(135deg,#17110d 0%,#3b1607 55%,#8a2c0a 100%);color:#fff;border:0;box-shadow:0 14px 34px color-mix(in oklab,var(--accent) 28%,transparent)}
+.hero .muted{color:rgba(255,255,255,.74)}
+.hero .eyebrow{color:#ffc93c}
+.btn.primary{background:linear-gradient(135deg,var(--accent),var(--accent2));border:0;color:#fff;box-shadow:0 8px 20px color-mix(in oklab,var(--accent) 38%,transparent)}
+.btn.primary:active{transform:translateY(1px) scale(.99)}
+.btn.big{letter-spacing:.08em}
+.card{border-radius:14px}
+.kpi b{background:linear-gradient(135deg,var(--fg),color-mix(in oklab,var(--accent) 70%,var(--fg)));-webkit-background-clip:text;background-clip:text;color:transparent}
+.fx-in .kpi b,.hero .kpi b{color:inherit;background:none}
+.lvl-plate{background-image:linear-gradient(135deg,rgba(255,255,255,.28),rgba(0,0,0,.18))}
+.xpbar{height:8px;border-radius:99px;background:var(--surface2);border:1px solid var(--line);overflow:hidden}
+.xpbar i{display:block;height:100%;border-radius:99px;background:linear-gradient(90deg,var(--yellow),var(--accent),var(--accent2));background-size:200% 100%;animation:brillo 3s linear infinite}
+@keyframes brillo{to{background-position:-200% 0}}
+#app.enter>.stack>*{animation:sube .38s both}
+#app.enter>.stack>*:nth-child(2){animation-delay:.04s}#app.enter>.stack>*:nth-child(3){animation-delay:.08s}#app.enter>.stack>*:nth-child(4){animation-delay:.12s}#app.enter>.stack>*:nth-child(5){animation-delay:.16s}#app.enter>.stack>*:nth-child(n+6){animation-delay:.2s}
+@keyframes sube{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.ejf{position:relative;display:block;overflow:hidden;border-radius:10px;background:var(--surface2);aspect-ratio:3/2;max-width:100%}
+.ejf img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.ejf .b{opacity:0;animation:ejflip 2.6s steps(1) infinite}
+@keyframes ejflip{0%,49%{opacity:0}50%,100%{opacity:1}}
+.ejf.th{width:74px;flex:none}
+.ejf.big{width:100%;border-radius:0}
+.card>.ejf.big{border-radius:10px}
+.ex.cur{border-color:var(--accent);box-shadow:0 0 0 2px color-mix(in oklab,var(--accent) 45%,transparent),0 12px 28px color-mix(in oklab,var(--accent) 18%,transparent)}
+.ex-h{align-items:center}
+.wprog{display:flex;align-items:center;gap:10px}.wprog .xpbar{flex:1}
+.mis{display:flex;flex-direction:column;gap:6px}
+.mi{display:grid;grid-template-columns:26px minmax(0,1fr) auto;gap:10px;align-items:center;padding:9px 10px;border:1px solid var(--line);border-radius:10px;background:var(--surface2);font-size:.92rem}
+.mi i{width:24px;height:24px;border-radius:50%;border:2px solid var(--line);display:grid;place-items:center;font-style:normal;font-weight:800;color:#fff;font-size:.8rem}
+.mi.ok{border-color:var(--green);background:color-mix(in oklab,var(--green) 12%,var(--surface))}
+.mi.ok i{background:var(--green);border-color:var(--green)}
+.mi b{color:var(--accent)}
+.rival{display:flex;align-items:center;gap:12px;width:100%;cursor:pointer;font:inherit;color:#fff;border:0;background:linear-gradient(135deg,var(--accent2),var(--accent));box-shadow:0 10px 24px color-mix(in oklab,var(--accent) 30%,transparent)}
+.rival .rpos{font-family:var(--display);font-size:2.2rem;font-weight:800;line-height:1}
+.av{display:inline-grid;place-items:center;border-radius:50%;flex:none;font-family:var(--display);font-weight:800;color:#fff;background:linear-gradient(135deg,hsl(var(--h) 75% 48%),hsl(calc(var(--h) + 40) 80% 38%));box-shadow:0 0 0 2px var(--surface)}
+.pod{align-items:center;gap:4px;box-shadow:0 10px 22px rgba(0,0,0,.18)}
+.pod.pos1{background:linear-gradient(160deg,#ffd75a,#f0a400);color:#2a1c00;min-height:178px}
+.pod.pos2{background:linear-gradient(160deg,#e3e8ef,#aab4c2);color:#1b222c;min-height:150px}
+.pod.pos3{background:linear-gradient(160deg,#f0a878,#b8672e);color:#2a1505;min-height:132px}
+.rkrow{grid-template-columns:2.6rem minmax(0,1fr) auto}
+.up{color:var(--green);font-size:.7rem}.down{color:var(--red);font-size:.7rem}
+.reto{border-color:var(--yellow);background:linear-gradient(180deg,color-mix(in oklab,var(--yellow) 14%,var(--surface)),var(--surface))}
+.rt{display:grid;grid-template-columns:minmax(0,7rem) 1fr 3.6rem;gap:10px;align-items:center;font-size:.92rem}
+.rt .nm{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.rt b{text-align:right}.rt.me .nm{font-weight:700}
+.rt .bar>i{background:linear-gradient(90deg,var(--yellow),var(--accent))}
+.vs{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:8px;text-align:center}
+.vs>div{display:flex;flex-direction:column;align-items:center;gap:4px;min-width:0}
+.vs .marc{font-family:var(--display);font-size:2.4rem;font-weight:800}
+.duel td,.duel th{text-align:center}.duel td:nth-child(2){color:var(--muted);font-size:.84rem}
+.duel .win{color:var(--green);font-weight:800}
+.feed{display:flex;flex-direction:column}
+.fe{display:flex;gap:10px;padding:9px 0;border-bottom:1px solid var(--line);font-size:.92rem}
+.fe:last-child{border-bottom:0}
+#confeti{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:60}
+#fx{position:fixed;inset:0;z-index:50;display:grid;place-items:center;padding:max(16px,env(safe-area-inset-top,0px)) 16px;background:rgba(8,6,5,.82);backdrop-filter:blur(6px)}
+.fx-in{width:min(460px,100%);max-height:100%;overflow:auto;background:linear-gradient(160deg,#1c120c,#431a08 70%,#a3360c);color:#fff;border-radius:18px;padding:24px 20px;display:flex;flex-direction:column;gap:14px;text-align:center;animation:pop .45s cubic-bezier(.2,1.4,.4,1) both}
+.fx-in h1{font-size:2.3rem}.fx-in p{margin:0;opacity:.85}
+.fx-in .eyebrow{color:#ffc93c}
+.fx-in .kpi{background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.18)}
+.fx-in .kpi span{color:rgba(255,255,255,.75)}
+.fx-l{display:flex;flex-direction:column;gap:6px;font-size:.95rem}
+.fx-l>div{background:rgba(255,255,255,.08);border-radius:10px;padding:8px 10px}
+@keyframes pop{from{opacity:0;transform:scale(.8)}to{opacity:1;transform:none}}
+.flot{position:fixed;left:50%;bottom:calc(150px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);z-index:45;font-family:var(--display);font-weight:800;font-size:1.9rem;color:var(--accent);text-shadow:0 2px 10px rgba(0,0,0,.35);pointer-events:none;animation:flota 1.2s ease-out both}
+@keyframes flota{from{opacity:0;transform:translate(-50%,10px) scale(.8)}20%{opacity:1;transform:translate(-50%,0) scale(1.1)}to{opacity:0;transform:translate(-50%,-90px)}}
+@media (prefers-reduced-motion:reduce){.ejf .b{animation:none}.xpbar i{animation:none}}
+.li.pl{flex-wrap:wrap}.li.pl .grow{flex:1 1 0}.li.pl select{flex:1 1 100%;max-width:100%;width:100%}
 @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
 </style>
 <style>html,body{margin:0}body{-webkit-tap-highlight-color:transparent}</style>
@@ -390,9 +461,9 @@ async function pull(){
         if(col==='perfil'){ if(pend[k]) o.perfil=pend[k]; } else if(pend[k]==null) delete o[col][id]; else o[col][id]=pend[k]; }
       const nuevo={owner:yo,perfil:migrarPerfil(o.perfil),entrenos:o.entrenos,pesos:o.pesos};
       const primera=!ui.loaded; ui.loaded=true;
-      if(JSON.stringify(nuevo)!==JSON.stringify(S)){ S=nuevo; lsSave(); render(); } else if(primera) render();
+      if(JSON.stringify(nuevo)!==JSON.stringify(S)){ S=nuevo; ui.lastL=null; lsSave(); render(); } else if(primera) render();
     }
-    setSync(nPend()?'pend':'nube'); flush(); cargarGym(); programarRanking();
+    setSync(nPend()?'pend':'nube'); flush(); cargarGym(); programarRanking(); cargarRanking();
   }catch(e){ setSync('error'); if(!ui.loaded&&S.owner===session.user.id){ ui.loaded=true; render(); } }
   finally{ pulling=false; }
 }
@@ -403,7 +474,7 @@ async function init(){
     const {data}=await sb.auth.getSession(); session=data.session;
     sb.auth.onAuthStateChange((ev,s)=>{ const antes=session; session=s;
       if(s&&!antes){ ui.loaded=false; pull(); render(); }
-      else if(!s&&antes){ S=vacio(); pend={}; savePend(); lsSave(); ui.loaded=false; ui.ranking=null; ui.td=null; ui.forceTest=false; ui.view='hoy'; render(); } });
+      else if(!s&&antes){ S=vacio(); pend={}; savePend(); lsSave(); ui.loaded=false; ui.lastL=null; ui.rkPrev=null; ui.ranking=null; ui.td=null; ui.forceTest=false; ui.view='hoy'; render(); } });
     render(); if(session) pull();
   }catch(e){ setSync('error'); render(); }
 }
@@ -447,29 +518,164 @@ async function guardarGym(){
 }
 let rkT=null;
 function programarRanking(){ if(!CLOUD||!session||!S.perfil.onboarded) return; clearTimeout(rkT); rkT=setTimeout(publicarRanking,1500); }
-function statsSemana(C){
-  const ini=parseD(weekKey(Date.now())).getTime();
-  const sets=C.sets.filter(s=>s.t>=ini);
-  const prs=[...C.prs].filter(k=>{const e=S.entrenos[k.split('|')[0]];return e&&e.inicio>=ini}).length;
-  const ent=terminados().filter(e=>e.inicio>=ini).length;
-  return {series:sets.length,prs,entrenos:ent,vol:Math.round(sets.reduce((a,s)=>a+s.peso*s.reps,0)),puntos:sets.length*10+ent*100+prs*50};
+/* ---------- Fotos de ejercicios, efectos y competición ---------- */
+function fotoEj(id,cls){return '<span class="ejf '+(cls||'')+'" aria-hidden="true"><img src="ej/'+id+'-0.jpg" alt="" loading="lazy" decoding="async"><img class="b" src="ej/'+id+'-1.jpg" alt="" loading="lazy" decoding="async"></span>'}
+let SONIDO=true; try{SONIDO=localStorage.getItem('forja.sonido')!=='0'}catch(e){}
+const SFX={set:[[660,0,.07]],pr:[[523,0,.1],[659,.1,.1],[784,.2,.1],[1047,.3,.28]],fin:[[392,0,.12],[523,.13,.12],[659,.26,.12],[784,.39,.14],[1047,.55,.35]]};
+function sonido(k){ if(!SONIDO) return; try{actx=actx||new (window.AudioContext||window.webkitAudioContext)();(SFX[k]||[]).forEach(([f,d,l])=>{const o=actx.createOscillator(),g=actx.createGain();o.type='triangle';o.frequency.value=f;o.connect(g);g.connect(actx.destination);const t=actx.currentTime+d;g.gain.setValueAtTime(0.0001,t);g.gain.exponentialRampToValueAtTime(0.25,t+0.015);g.gain.exponentialRampToValueAtTime(0.0001,t+l);o.start(t);o.stop(t+l+0.02)})}catch(e){} }
+const sinMov=()=>{try{return matchMedia('(prefers-reduced-motion: reduce)').matches}catch(e){return false}};
+function confeti(n){
+  if(sinMov()) return; let c=document.getElementById('confeti');
+  if(!c){c=document.createElement('canvas');c.id='confeti';c.setAttribute('aria-hidden','true');document.body.appendChild(c)}
+  const W=c.width=innerWidth,H=c.height=innerHeight,g=c.getContext('2d'),cols=['#ff6a2b','#ffc93c','#3cc77a','#5b8cff','#ff5a52','#ffffff'];
+  const ps=Array.from({length:n||120},()=>({x:W/2+(Math.random()-.5)*W*.5,y:H*.35,vx:(Math.random()-.5)*14,vy:-Math.random()*13-4,s:5+Math.random()*7,r:Math.random()*6,vr:(Math.random()-.5)*.4,c:cols[Math.floor(Math.random()*cols.length)]}));
+  const t0=performance.now(); c.hidden=false;
+  (function f(t){const k=(t-t0)/2400;g.clearRect(0,0,W,H);if(k>=1){c.hidden=true;return}
+    ps.forEach(p=>{p.vy+=.38;p.x+=p.vx;p.y+=p.vy;p.vx*=.99;p.r+=p.vr;g.save();g.globalAlpha=Math.max(0,1-k*k);g.translate(p.x,p.y);g.rotate(p.r);g.fillStyle=p.c;g.fillRect(-p.s/2,-p.s/3,p.s,p.s*.66);g.restore()});
+    requestAnimationFrame(f)})(t0);
+}
+function flotar(txt){ if(sinMov()) return; const el=document.createElement('div');el.className='flot';el.textContent=txt;document.body.appendChild(el);setTimeout(()=>el.remove(),1300) }
+function fiesta(o){
+  let el=document.getElementById('fx'); if(!el){el=document.createElement('div');el.id='fx';document.body.appendChild(el)}
+  el.hidden=false;
+  el.innerHTML='<div class="fx-in" role="dialog" aria-modal="true" aria-label="'+esc(o.titulo)+'"><div class="eyebrow">'+esc(o.eyebrow||'')+'</div><h1>'+esc(o.titulo)+'</h1>'+(o.sub?'<p>'+esc(o.sub)+'</p>':'')+
+    (o.kpis?'<div class="kpis">'+o.kpis.map(([v,l])=>'<div class="kpi"><b class="num">'+esc(v)+'</b><span>'+esc(l)+'</span></div>').join('')+'</div>':'')+
+    (o.lineas&&o.lineas.length?'<div class="fx-l">'+o.lineas.map(l=>'<div>'+l+'</div>').join('')+'</div>':'')+
+    '<button class="btn big primary" data-act="fxCerrar" id="fxOk">'+esc(o.boton||'Seguir')+'</button></div>';
+  confeti(o.confeti||140); sonido(o.sfx||'fin'); try{navigator.vibrate&&navigator.vibrate([80,60,80,60,200])}catch(e){}
+  setTimeout(()=>{const b=document.getElementById('fxOk');b&&b.focus()},50);
+}
+/* Misiones del día: dan XP extra y puntos para el ranking */
+function misionesDe(e){
+  const n=e?(e.ejercicios||[]).reduce((a,x)=>a+(x.series||[]).length,0):0;
+  const toca=!!e&&SEMANA[new Date(e.inicio).getDay()]===e.plantilla&&n>0;
+  const comp=!!e&&(e.ejercicios||[]).length>=5&&e.ejercicios.every(x=>(x.series||[]).length>=x.series_obj);
+  const L=[{t:'Entrena el día que toca',ok:toca,xp:30},{t:'Haz 20 series o más',ok:n>=20,xp:40,prog:Math.min(n,20)+'/20'},{t:'Completa todas las series del plan',ok:comp,xp:60}];
+  return {L,xp:L.filter(m=>m.ok).reduce((a,m)=>a+m.xp,0)};
+}
+function misionesCard(){
+  const hoy=hoyK(), e=entrenosOrden().filter(x=>dkey(new Date(x.inicio))===hoy).pop()||null, M=misionesDe(e), hechas=M.L.filter(m=>m.ok).length;
+  return '<div class="card stack"><div class="row between"><div><div class="eyebrow">Misiones de hoy</div><h2>'+hechas+' de 3</h2></div><span class="pill '+(hechas===3?'g':'b')+' num">+'+M.xp+' / 130 XP</span></div><div class="mis">'+M.L.map(m=>'<div class="mi'+(m.ok?' ok':'')+'"><i>'+(m.ok?'✓':'')+'</i><span>'+m.t+(m.prog&&!m.ok?' <span class="muted num">'+m.prog+'</span>':'')+'</span><b class="num">+'+m.xp+'</b></div>').join('')+'</div></div>';
+}
+/* Reto de la semana: cambia cada lunes */
+const RETOS=[
+ {id:'hombros',n:'Semana de hombros',d:'Quién hace más series de hombro',u:'series',m:['hombro-frontal','hombro-lateral','hombro-posterior']},
+ {id:'toneladas',n:'Semana de toneladas',d:'Quién mueve más kilos en total',u:'kg'},
+ {id:'records',n:'Caza récords',d:'Quién bate más marcas personales',u:'récords'},
+ {id:'espalda',n:'Semana de espalda',d:'Quién hace más series de espalda',u:'series',m:['dorsales','trapecio']},
+ {id:'brazos',n:'Semana de brazos',d:'Quién hace más series de bíceps y tríceps',u:'series',m:['biceps','triceps']},
+ {id:'pierna',n:'Semana de pierna',d:'Quién hace más series de pierna',u:'series',m:['cuadriceps','isquios','gluteos']}
+];
+function retoSemana(){const n=Math.round(parseD(weekKey(Date.now())).getTime()/(7*864e5));return RETOS[((n%RETOS.length)+RETOS.length)%RETOS.length]}
+function retoValor(R,C,W){
+  const ini=parseD(weekKey(Date.now())).getTime(), sets=C.sets.filter(s=>s.t>=ini);
+  if(R.id==='toneladas') return W.vol; if(R.id==='records') return W.prs;
+  return sets.filter(s=>EXM[s.ej]&&EXM[s.ej].p.some(m=>R.m.includes(m))).length;
+}
+function misEventos(C){
+  const ev=[];
+  terminados().slice(-4).forEach(e=>ev.push({t:e.fin,k:'fin',txt:e.nombre,n:(e.ejercicios||[]).reduce((a,x)=>a+(x.series||[]).length,0)}));
+  [...C.prs].forEach(k=>{const [eid,xi,si]=k.split('|'),e=S.entrenos[eid],x=e&&e.ejercicios[+xi],s=x&&x.series[+si];if(s&&EXM[x.ej])ev.push({t:s.t,k:'pr',txt:EXM[x.ej].n,v:fmtKg(+s.peso)+'×'+s.reps})});
+  return ev.sort((a,b)=>b.t-a.t).slice(0,8);
+}
+function statsSemana(C,ini){
+  if(ini==null) ini=parseD(weekKey(Date.now())).getTime(); const fin=ini+7*864e5+3.7e6;
+  const sets=C.sets.filter(s=>s.t>=ini&&s.t<fin);
+  const prs=[...C.prs].filter(k=>{const e=S.entrenos[k.split('|')[0]];return e&&e.inicio>=ini&&e.inicio<fin}).length;
+  const ents=terminados().filter(e=>e.inicio>=ini&&e.inicio<fin), mis=ents.reduce((a,e)=>a+misionesDe(e).xp,0);
+  return {series:sets.length,prs,entrenos:ents.length,vol:Math.round(sets.reduce((a,s)=>a+s.peso*s.reps,0)),mis,puntos:sets.length*10+ents.length*100+prs*50+mis};
 }
 const LIFTS=[['banca','Press banca'],['sentadilla','Sentadilla'],['militar','Press militar'],['remo-barra','Remo con barra'],['curl-barra','Curl barra Z'],['prensa','Prensa']];
 async function publicarRanking(){
   try{
-    const C=computeAll(),X=xpInfo(C),W=statsSemana(C),up=ultimoPeso(),fuerza={};
+    const C=computeAll(),X=xpInfo(C),W=statsSemana(C),up=ultimoPeso(),fuerza={},best={},hist={},R=retoSemana();
     LIFTS.forEach(([id])=>{const b=C.best[id]; if(b) fuerza[id]={e1rm:Math.round(b*10)/10,rel:up&&up.kg?Math.round(b/up.kg*100)/100:null}});
-    const data={nivel:X.L,rango:rango(X.L),xp:X.xp,racha:X.racha,prs:C.prs.size,entrenos:terminados().length,semana:W,semanaKey:weekKey(Date.now()),fuerza};
+    Object.keys(C.best).forEach(id=>{if(EXM[id]&&C.best[id]>0){const s=C.bestSet[id];best[id]={e:Math.round(C.best[id]*10)/10,s:fmtKg(s.peso)+'×'+s.reps}}});
+    const d0=parseD(weekKey(Date.now()));
+    for(let i=1;i<=8;i++){const d=new Date(d0);d.setDate(d.getDate()-7*i);const p=statsSemana(C,d.getTime()).puntos;if(p)hist[dkey(d)]=p}
+    const last=C.sets.length?C.sets[C.sets.length-1].t:null;
+    const data={nivel:X.L,rango:rango(X.L),xp:X.xp,racha:X.racha,prs:C.prs.size,entrenos:terminados().length,semana:W,semanaKey:weekKey(Date.now()),fuerza,best,hist,feed:misEventos(C),ultimo:last,reto:{id:R.id,v:retoValor(R,C,W)}};
     const {error}=await sb.from('forja_ranking').upsert({user_id:session.user.id,nombre:(S.perfil.nombre||'Sin nombre').slice(0,30),data,updated_at:new Date().toISOString()});
     if(error) throw error;
-    if(ui.view==='ranking') cargarRanking();
+    cargarRanking();
   }catch(e){}
 }
 async function cargarRanking(){
   if(!CLOUD||!session||ui.rkCargando) return; ui.rkCargando=true;
-  try{ const {data,error}=await sb.from('forja_ranking').select('user_id,nombre,data,updated_at'); if(error) throw error; ui.ranking=data; ui.rkError=null; }
-  catch(e){ ui.rkError=String(e&&e.message||e); }
-  ui.rkCargando=false; if(ui.view==='ranking') render();
+  try{
+    const {data,error}=await sb.from('forja_ranking').select('user_id,nombre,data,updated_at'); if(error) throw error;
+    ui.ranking=data; ui.rkError=null;
+    const wk=weekKey(Date.now()), pos={}; rkRows('semana').forEach((r,i)=>pos[r.id]=i);
+    if(!ui.rkPrev){ try{const p=JSON.parse(localStorage.getItem('forja.rk.pos')||'null'); ui.rkPrev=(p&&p.wk===wk)?p.pos:{}}catch(e){ui.rkPrev={}} }
+    try{localStorage.setItem('forja.rk.pos',JSON.stringify({wk,pos}))}catch(e){}
+  }catch(e){ ui.rkError=String(e&&e.message||e); }
+  ui.rkCargando=false; if((ui.view==='ranking'||ui.view==='hoy')&&!ui.enTest&&!(document.activeElement&&/^(INPUT|SELECT)$/.test(document.activeElement.tagName))) render();
+}
+function avatar(r,size){const n=String(r.nombre||'?').trim()||'?';let h=0;for(const c of String(r.id||n))h=(h*31+c.charCodeAt(0))%360;return '<span class="av" style="--h:'+h+';width:'+size+'px;height:'+size+'px;font-size:'+Math.round(size*.4)+'px">'+esc(n.slice(0,2).toUpperCase())+'</span>'}
+function rkRows(cat,lift){
+  const wk=weekKey(Date.now()), me=session&&session.user.id;
+  return (ui.ranking||[]).map(r=>{
+    const d=r.data||{}, sem=d.semanaKey===wk?(d.semana||{}):{}; let v,txt,sub;
+    if(cat==='semana'){v=sem.puntos||0;txt=fmtN(v)+' pts';sub=(sem.entrenos||0)+' entrenos · '+(sem.series||0)+' series · '+(sem.prs||0)+' récords'}
+    else if(cat==='nivel'){v=d.xp||0;txt='Nv '+(d.nivel||1);sub=(d.rango||'')+' · '+fmtN(v)+' XP'}
+    else if(cat==='fuerza'){const f=(d.fuerza||{})[lift];v=f?(f.rel||0.0001):-1;txt=f&&f.rel?'×'+f.rel.toFixed(2):'—';sub=f?fmtKg(f.e1rm)+' kg de 1RM estimado':'Sin marca todavía'}
+    else if(cat==='racha'){v=d.racha||0;txt=v+' sem';sub=(d.entrenos||0)+' entrenos en total'}
+    else if(cat==='reto'){const R=retoSemana();v=(d.semanaKey===wk&&d.reto&&d.reto.id===R.id)?(d.reto.v||0):0;txt=fmtN(v)+' '+R.u;sub=''}
+    else {v=d.prs||0;txt=v+' PR';sub='marcas personales'}
+    return {id:r.user_id,nombre:r.nombre||'Sin nombre',v,txt,sub,me:r.user_id===me,d};
+  }).sort((a,b)=>b.v-a.v);
+}
+function trofeos(){ // semanas ganadas (últimas 8)
+  const t={}, d0=parseD(weekKey(Date.now()));
+  for(let i=1;i<=8;i++){const d=new Date(d0);d.setDate(d.getDate()-7*i);const k=dkey(d);let mx=0;(ui.ranking||[]).forEach(r=>{mx=Math.max(mx,((r.data||{}).hist||{})[k]||0)});if(mx>0)(ui.ranking||[]).forEach(r=>{if((((r.data||{}).hist||{})[k]||0)===mx)t[r.user_id]=(t[r.user_id]||0)+1})}
+  return t;
+}
+function hace(ms){const m=Math.max(0,Math.round((Date.now()-ms)/60000));return m<1?'ahora':m<60?'hace '+m+' min':m<1440?'hace '+Math.round(m/60)+' h':m<2880?'ayer':'hace '+Math.round(m/1440)+' días'}
+function feedCard(n){
+  const ev=[];(ui.ranking||[]).forEach(r=>((r.data||{}).feed||[]).forEach(e=>ev.push(Object.assign({id:r.user_id,nombre:r.nombre},e))));
+  ev.sort((a,b)=>b.t-a.t); if(!ev.length) return '';
+  return '<div class="card stack"><div><div class="eyebrow">En directo</div><h2>Actividad del grupo</h2></div><div class="feed">'+ev.slice(0,n||8).map(e=>'<div class="fe">'+avatar(e,34)+'<div style="min-width:0"><b>'+esc(e.nombre)+'</b> '+(e.k==='pr'?'batió récord en <b>'+esc(e.txt)+'</b> <span class="pill y num">'+esc(e.v)+'</span>':'terminó <b>'+esc(e.txt)+'</b> <span class="muted">· '+(e.n||0)+' series</span>')+'<div class="small muted">'+hace(e.t)+'</div></div></div>').join('')+'</div></div>';
+}
+function rivalCard(){
+  if(!CLOUD||!ui.ranking) return '';
+  const rows=rkRows('semana'), i=rows.findIndex(r=>r.me); if(i<0) return '';
+  if(rows.length<2) return '<div class="card flat small">Todavía estás solo en el ranking. Pasa la app a tus amigos para competir.</div>';
+  const yo=rows[i], hoy=hoyK(), hoyEnt=rows.filter(r=>!r.me&&r.d.ultimo&&dkey(new Date(r.d.ultimo))===hoy).map(r=>r.nombre);
+  let t; if(i===0){const s=rows[1];t=yo.v>s.v?'Vas <b>1º</b> esta semana. '+esc(s.nombre)+' te sigue a <b class="num">'+fmtN(yo.v-s.v)+' pts</b>.':'Vais empatados en cabeza: cada serie cuenta.'}
+  else {const a=rows[i-1];t='Vas <b>'+(i+1)+'º</b>. Te faltan <b class="num">'+fmtN(a.v-yo.v+10)+' pts</b> para adelantar a '+esc(a.nombre)+'.'}
+  return '<button class="card rival" data-act="go" data-v="ranking"><span class="rpos num">'+(i+1)+'º</span><span style="min-width:0;flex:1;text-align:left"><span>'+t+'</span>'+(hoyEnt.length?'<span class="small" style="display:block;opacity:.85">Hoy ya '+(hoyEnt.length>1?'han':'ha')+' entrenado '+esc(hoyEnt.join(' y '))+'.</span>':'')+'</span><span aria-hidden="true">›</span></button>';
+}
+function vRanking(){
+  if(!CLOUD) return '<div class="stack"><h1>Ranking</h1><div class="empty">El ranking necesita la cuenta en la nube.</div></div>';
+  if(!ui.ranking&&!ui.rkCargando&&!ui.rkError) cargarRanking();
+  const cat=ui.rkCat||'semana', lift=ui.rkLift||'banca', rows=rkRows(cat,lift), T=trofeos(), prev=ui.rkPrev||{};
+  const cats=[['semana','Esta semana'],['nivel','Nivel'],['fuerza','Fuerza'],['racha','Racha'],['records','Récords']];
+  const top=rows.slice(0,3), podOrder=[1,0,2].filter(i=>top[i]);
+  const podio=top.length?'<div class="podio">'+podOrder.map(i=>'<div class="pod pos'+(i+1)+(top[i].me?' me':'')+'">'+avatar(top[i],i===0?54:44)+'<span class="nm">'+esc(top[i].nombre)+(top[i].me?' (tú)':'')+'</span><b>'+esc(top[i].txt)+'</b><span class="small">'+(i+1)+'º'+(T[top[i].id]?' · '+T[top[i].id]+' 🏆':'')+'</span></div>').join('')+'</div>':'';
+  const flecha=(r,i)=>{if(cat!=='semana'||prev[r.id]==null||prev[r.id]===i)return '';return prev[r.id]>i?' <span class="up" title="Ha subido">▲</span>':' <span class="down" title="Ha bajado">▼</span>'};
+  const lista=rows.map((r,i)=>'<div class="rkrow'+(r.me?' me':'')+'"><b class="num">'+(i+1)+flecha(r,i)+'</b><div class="row" style="min-width:0;flex-wrap:nowrap;gap:8px">'+avatar(r,34)+'<div style="min-width:0"><b>'+esc(r.nombre)+(r.me?' (tú)':'')+'</b>'+(T[r.id]?' <span class="small">'+T[r.id]+' 🏆</span>':'')+'<div class="small muted">'+esc(r.sub)+'</div></div></div><b class="num">'+esc(r.txt)+'</b></div>').join('');
+  const expl={semana:'Se reinicia cada lunes: 10 puntos por serie, 100 por entreno, 50 por récord y los puntos de las misiones. Quien gana la semana se lleva un trofeo 🏆.',nivel:'Puntos de experiencia acumulados desde el principio.',fuerza:'Tu 1RM estimado dividido entre tu peso: así compiten igual pesos distintos.',racha:'Semanas seguidas con 4 o más entrenos.',records:'Marcas personales batidas en total.'}[cat];
+  // reto
+  const R=retoSemana(), rr=rkRows('reto'), mx=Math.max(1,...rr.map(r=>r.v));
+  const fin=new Date(parseD(weekKey(Date.now())).getTime()+7*864e5), dias=Math.max(0,Math.ceil((fin-Date.now())/864e5));
+  const reto='<div class="card reto stack"><div class="row between"><div><div class="eyebrow">Reto de la semana</div><h2>'+R.n+'</h2></div><span class="pill y">'+(dias<=1?'Último día':'Quedan '+dias+' días')+'</span></div><div class="small">'+R.d+'.</div><div class="stack" style="gap:8px">'+rr.map((r,i)=>'<div class="rt'+(r.me?' me':'')+'"><span class="nm">'+(i===0&&r.v>0?'👑 ':'')+esc(r.nombre)+'</span><span class="bar"><i style="width:'+Math.round(r.v/mx*100)+'%"></i></span><b class="num">'+fmtN(r.v)+'</b></div>').join('')+'</div></div>';
+  // cara a cara
+  const yo=rows.find(r=>r.me), otros=rows.filter(r=>!r.me); let duelo='';
+  if(yo&&otros.length){
+    const riv=otros.find(r=>r.id===ui.rkRival)||otros[0], a=yo.d.best||{}, b=riv.d.best||{}, ids=Object.keys(a).filter(k=>b[k]&&EXM[k]).sort((x,y)=>b[y].e-b[x].e);
+    let ga=0,gb=0; const filas=ids.map(k=>{const w=a[k].e>b[k].e?1:a[k].e<b[k].e?-1:0;if(w>0)ga++;if(w<0)gb++;return '<tr><td class="num'+(w>0?' win':'')+'">'+esc(a[k].s)+'</td><td>'+esc(EXM[k].n)+'</td><td class="num'+(w<0?' win':'')+'">'+esc(b[k].s)+'</td></tr>'}).join('');
+    duelo='<div class="card stack"><div><div class="eyebrow">Cara a cara</div><h2>Tú contra…</h2></div>'+(otros.length>1?'<div class="row">'+otros.map(r=>'<button class="chip'+(r.id===riv.id?' on':'')+'" data-act="rkRival" data-v="'+esc(r.id)+'">'+esc(r.nombre)+'</button>').join('')+'</div>':'')+
+      '<div class="vs"><div>'+avatar(yo,48)+'<b>'+esc(yo.nombre)+'</b></div><div class="marc num">'+ga+' – '+gb+'</div><div>'+avatar(riv,48)+'<b>'+esc(riv.nombre)+'</b></div></div>'+
+      (ids.length?'<div class="chart"><table class="sets duel"><thead><tr><th>Tú</th><th>Ejercicio</th><th>'+esc(riv.nombre)+'</th></tr></thead><tbody>'+filas+'</tbody></table></div><div class="small muted">Mejor serie de cada uno en los ejercicios que habéis hecho los dos. Gana quien tiene más 1RM estimado.</div>':'<div class="empty">Todavía no tenéis ejercicios en común registrados.</div>')+'</div>';
+  }
+  return '<div class="stack"><div class="row between"><div><div class="eyebrow">Competición del grupo</div><h1>Ranking</h1></div><button class="btn sm" data-act="rkRefresh">'+(ui.rkCargando?'Cargando…':'Actualizar')+'</button></div>'+
+    rivalCard()+
+    '<div class="row" role="group" aria-label="Categoría">'+cats.map(([k,n])=>'<button class="chip'+(cat===k?' on':'')+'" data-act="rkCat" data-v="'+k+'">'+n+'</button>').join('')+'</div>'+
+    (cat==='fuerza'?'<div class="row" role="group" aria-label="Ejercicio">'+LIFTS.map(([k,n])=>'<button class="chip'+(lift===k?' on':'')+'" data-act="rkLift" data-v="'+k+'">'+n+'</button>').join('')+'</div>':'')+
+    (ui.rkError?'<div class="sug">No se pudo cargar el ranking: '+esc(ui.rkError)+'</div>':'')+
+    (rows.length?podio+'<div class="card">'+lista+'</div>':'<div class="empty">'+(ui.rkCargando?'Cargando…':'Todavía no hay nadie en el ranking. Termina un entreno y aparecerás.')+'</div>')+
+    '<p class="small muted" style="margin:0">'+expl+'</p>'+(rows.length?reto+duelo+feedCard(10):'')+
+    '<p class="small muted" style="margin:0">En el ranking se ve tu nombre, tu nivel, tus entrenos y tus marcas. Tu peso, tus medidas y tus fotos no se ven.</p></div>';
 }
 async function reducirFoto(file){
   const url=URL.createObjectURL(file);
@@ -521,6 +727,7 @@ function nutri(){
 
 window.addEventListener('online',()=>flush());
 document.addEventListener('visibilitychange',()=>{ if(document.visibilityState==='visible'&&session){ flush(); pull(); } });
+setInterval(()=>{ if(document.visibilityState==='visible'&&session&&S.perfil.onboarded&&(ui.view==='ranking'||ui.view==='hoy')) cargarRanking(); },60000);
 
 /* ===================== UTILIDADES ===================== */
 const $=s=>document.querySelector(s);
@@ -596,7 +803,7 @@ function xpInfo(C){
   const fin=terminados(); let xp=0;const det={series:0,prs:0,ses:0,peso:0,semanas:0};
   for(const s of C.sets){xp+=10;det.series++; if(s.rmin&&s.reps>=s.rmin)xp+=5;}
   xp+=C.prs.size*50;det.prs=C.prs.size;
-  for(const e of fin){const n=(e.ejercicios||[]).reduce((a,x)=>a+(x.series||[]).length,0);if(n>=6){xp+=100;det.ses++}}
+  for(const e of fin){const n=(e.ejercicios||[]).reduce((a,x)=>a+(x.series||[]).length,0);if(n>=6){xp+=100;det.ses++} xp+=misionesDe(e).xp}
   for(const k in S.pesos){if(k>=APP_START){xp+=15;det.peso++}}
   const wk={};fin.forEach(e=>{const w=weekKey(e.inicio);wk[w]=(wk[w]||0)+1});
   const cur=weekKey(Date.now());
@@ -752,13 +959,14 @@ function vHoy(C,X){
   return '<div class="stack">'+
    '<div class="row between"><div><div class="eyebrow">'+DIAS[d.getDay()]+' '+d.getDate()+' de '+['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'][d.getMonth()]+'</div><h1>'+saludo+', '+esc(S.perfil.nombre)+'</h1></div><button class="row" data-act="go" data-v="yo" style="border:0;background:transparent;cursor:pointer;gap:8px"><span class="lvl-plate" style="width:46px;height:46px;font-size:1.3rem;background:'+rangoColor(X.L)+'">'+X.L+'</span><span style="text-align:left"><b style="display:block;font-family:var(--display);text-transform:uppercase;font-size:1.05rem">'+rango(X.L)+'</b><span class="small muted num">'+fmtN(X.cur)+' / '+fmtN(X.need)+' XP</span></span></button></div>'+
    '<span class="sync" data-sync></span>'+
-   semanaStrip()+res+rec+
-   '<div class="kpis"><div class="kpi"><b class="num">'+X.semana+'<small style="font-size:1rem;color:var(--muted)">/'+objSem+'</small></b><span>entrenos esta semana</span></div><div class="kpi"><b class="num">'+X.racha+'</b><span>semanas de racha</span></div><div class="kpi"><b class="num">'+(up?fmtKg(up.kg):'—')+'</b><span>kg ('+(up?fmtD(up.fecha):'sin datos')+')</span></div></div>'+
+   '<div class="xpbar" title="Progreso al siguiente nivel"><i style="width:'+Math.max(3,Math.round(X.cur/X.need*100))+'%"></i></div>'+
+   semanaStrip()+rivalCard()+res+rec+misionesCard()+
+   '<div class="kpis"><div class="kpi"><b class="num">'+X.semana+'<small style="font-size:1rem;color:var(--muted)">/'+objSem+'</small></b><span>entrenos esta semana</span></div><div class="kpi"><b class="num">'+X.racha+(X.racha>0?' 🔥':'')+'</b><span>semanas de racha</span></div><div class="kpi"><b class="num">'+(up?fmtKg(up.kg):'—')+'</b><span>kg ('+(up?fmtD(up.fecha):'sin datos')+')</span></div></div>'+
    '<div class="grid2">'+
      '<div class="card stack"><div class="row between"><div><div class="eyebrow">Fase actual</div><h2>'+f.n+'</h2></div><span class="pill '+(f.id==='def'?'r':f.id==='vol'?'g':'b')+'">'+(N?fmtN(N.kcal)+' kcal':'Haz el test')+'</span></div><div class="small">'+f.meta+'. '+f.extra+'</div><div class="list small"><div class="li"><span>Proteína</span><b class="num">'+(N?N.prot+' g/día':'—')+'</b></div><div class="li"><span>Creatina</span><b>3–5 g/día si la tomas</b></div><div class="li"><span>Pasos</span><b>8–10 mil al día</b></div><div class="li"><span>Tendencia 3 semanas</span><b class="num">'+(tend==null?'Apunta el peso más días':(tend>0?'+':'')+fmtKg(tend)+' kg/sem')+'</b></div></div></div>'+
      '<div class="card stack"><div><div class="eyebrow">Peso de hoy</div><h2>Báscula</h2></div><div class="small muted">Pésate en ayunas, después del baño. Cuenta la media de 7 días, no un día suelto.</div><form class="inrow" data-form="peso" style="grid-template-columns:1fr auto"><label class="f" for="pesoHoy">Kg<input id="pesoHoy" type="number" step="0.1" min="40" max="200" inputmode="decimal" placeholder="'+(up?fmtKg(up.kg).replace(',','.'):'')+'" value="'+(S.pesos[hoyK()]?S.pesos[hoyK()].kg:'')+'"></label><button class="btn primary" type="submit">Guardar</button></form><div class="row small"><span class="muted">Media 7 días:</span><b class="num">'+(med?fmtKg(med)+' kg':'—')+'</b><span class="muted">· Objetivo:</span><b class="num">'+(+S.perfil.pesoObjetivo?S.perfil.pesoObjetivo+' kg':'—')+'</b></div></div>'+
    '</div>'+
-   '<div class="card stack"><div class="row between"><div><div class="eyebrow">Recuperación ahora</div><h2>Tus músculos</h2></div><button class="btn sm" data-act="go" data-v="cuerpo">Ver mapa</button></div>'+mapaPair(C,'rec')+legendRec()+'</div>'+
+   '<div class="card stack"><div class="row between"><div><div class="eyebrow">Recuperación ahora</div><h2>Tus músculos</h2></div><button class="btn sm" data-act="go" data-v="cuerpo">Ver mapa</button></div>'+mapaPair(C,'rec')+legendRec()+'</div>'+feedCard(5)+
   '</div>';
 }
 function tplList(R){return '<div class="stack" style="gap:8px">'+R.scores.map(({t,s})=>'<button class="tpl" data-act="startTpl" data-t="'+t+'" style="color:var(--fg)"><span><b>'+P(t).n+'</b> <span class="muted small">· '+P(t).sub+'</span></span><span class="pill '+(s>=75?'g':s>=50?'y':'r')+'">'+s+' %</span></button>').join('')+'<button class="tpl" data-act="startLibre" style="color:var(--fg)"><span><b>Entreno libre</b> <span class="muted small">· eliges tú los ejercicios</span></span><span class="muted">+</span></button></div>'}
@@ -772,6 +980,8 @@ function vEntreno(C){
   const vol=(a.ejercicios||[]).reduce((s,x)=>s+(x.series||[]).reduce((t,z)=>t+(+z.peso||0)*(+z.reps||0),0),0);
   let h='<div class="stack"><div class="row between"><div><div class="eyebrow">En curso · <span class="num" data-elapsed>'+mins+' min</span></div><h1>'+esc(a.nombre)+'</h1></div><div class="row">'+(ui.confirm==='terminar'?'<button class="btn primary" data-act="terminar">Sí, terminar</button><button class="btn" data-act="noConfirm">Seguir</button>':'<button class="btn primary" data-act="ask" data-c="terminar">Terminar</button>')+'</div></div>'+
    '<div class="row small muted"><span class="num">'+nS+' series</span>·<span class="num">'+fmtN(vol)+' kg de volumen</span></div>';
+  const totObj=(a.ejercicios||[]).reduce((s,x)=>s+Math.max(x.series_obj,(x.series||[]).length),0), cur=(a.ejercicios||[]).findIndex(x=>(x.series||[]).length<x.series_obj);
+  h+='<div class="wprog"><div class="xpbar"><i style="width:'+(totObj?Math.round(nS/totObj*100):0)+'%"></i></div><b class="num small">'+nS+'/'+totObj+'</b></div>';
   (a.ejercicios||[]).forEach((x,xi)=>{
     const e=EXM[x.ej]; if(!e) return;
     const sug=sugerencia(x.ej,x,C), done=(x.series||[]).length>=x.series_obj;
@@ -779,7 +989,7 @@ function vEntreno(C){
     const lastS=(x.series||[])[(x.series||[]).length-1];
     const pv=dr.peso??(lastS?lastS.peso:(sug&&sug.peso!==''?sug.peso:''));
     const rv=dr.reps??(sug?sug.reps:x.rmax);
-    h+='<div class="ex"><div class="ex-h"><div style="min-width:0"><h3>'+esc(e.n)+'</h3><div class="small muted">'+x.series_obj+' × '+x.rmin+'–'+x.rmax+' reps · descanso '+fmtRest(e.d)+' · '+e.p.map(m=>MUSC[m].n).join(', ')+'</div></div>'+(done?'<span class="done-mark small">Hecho</span>':'<span class="pill b num">'+(x.series||[]).length+'/'+x.series_obj+'</span>')+'</div><div class="ex-b">';
+    h+='<div class="ex'+(xi===cur?' cur':'')+'">'+(xi===cur?fotoEj(x.ej,'big'):'')+'<div class="ex-h">'+(xi===cur?'':fotoEj(x.ej,'th'))+'<div style="min-width:0;flex:1"><h3>'+esc(e.n)+'</h3><div class="small muted">'+x.series_obj+' × '+x.rmin+'–'+x.rmax+' reps · descanso '+fmtRest(e.d)+' · '+e.p.map(m=>MUSC[m].n).join(', ')+'</div></div>'+(done?'<span class="done-mark small">Hecho</span>':'<span class="pill b num">'+(x.series||[]).length+'/'+x.series_obj+'</span>')+'</div><div class="ex-b">';
     if(sug&&!(x.series||[]).length) h+='<div class="sug">'+sug.txt+(sug.ult?'<div class="muted small" style="margin-top:2px">Última vez: '+sug.ult+'</div>':'')+'</div>';
     if((x.series||[]).length){
       h+='<table class="sets"><thead><tr><th>Serie</th><th>Peso</th><th>Reps</th><th></th></tr></thead><tbody>'+x.series.map((s,si)=>'<tr><td class="num">'+(si+1)+'</td><td class="num">'+fmtKg(+s.peso||0)+' kg</td><td class="num">'+s.reps+(C.prs.has(a.id+'|'+xi+'|'+si)?' <span class="pill y">PR</span>':'')+'</td><td style="text-align:right"><button class="btn sm ghost" data-act="delSet" data-x="'+xi+'" data-s="'+si+'" aria-label="Borrar serie '+(si+1)+'">Borrar</button></td></tr>').join('')+'</tbody></table>';
@@ -796,7 +1006,7 @@ function fmtRest(s){return s>=60?(Math.floor(s/60)+(s%60?':'+pad(s%60):'')+' min
 function picker(){
   const q=ui.pickQ.toLowerCase();
   const list=EX.filter(e=>!q||e.n.toLowerCase().includes(q)||e.p.some(m=>MUSC[m].n.toLowerCase().includes(q)));
-  return '<label class="f" for="pickQ">Buscar por nombre o músculo<input id="pickQ" type="text" data-pick value="'+esc(ui.pickQ)+'" placeholder="p. ej. hombro, curl, remo"></label><div class="picker">'+list.map(e=>'<button data-act="addEj" data-e="'+e.id+'"><span>'+esc(e.n)+'</span><span class="muted small">'+e.p.map(m=>MUSC[m].n).join(', ')+'</span></button>').join('')+'</div>';
+  return '<label class="f" for="pickQ">Buscar por nombre o músculo<input id="pickQ" type="text" data-pick value="'+esc(ui.pickQ)+'" placeholder="p. ej. hombro, curl, remo"></label><div class="picker">'+list.map(e=>'<button data-act="addEj" data-e="'+e.id+'" style="align-items:center">'+fotoEj(e.id,'th')+'<span style="flex:1">'+esc(e.n)+'</span><span class="muted small">'+e.p.map(m=>MUSC[m].n).join(', ')+'</span></button>').join('')+'</div>';
 }
 
 function vMapa(C){
@@ -878,7 +1088,7 @@ function vLogros(C,X){
   return '<div class="stack"><div><div class="eyebrow">Gamificación</div><h1>Nivel y logros</h1></div>'+
    '<div class="card stack"><div class="row" style="gap:16px;flex-wrap:nowrap"><div class="lvl-plate" style="background:'+rangoColor(X.L)+'">'+X.L+'</div><div style="flex:1;min-width:0" class="stack"><div><div class="eyebrow">Rango</div><h2>'+rango(X.L)+'</h2></div><div class="bar"><i style="width:'+pct+'%"></i></div><div class="small muted num">'+fmtN(X.cur)+' / '+fmtN(X.need)+' XP para el nivel '+(X.L+1)+' · '+fmtN(X.xp)+' XP en total</div></div></div>'+
    '<div class="ladder">'+RANGOS.map(([l,n])=>'<span class="'+(rango(X.L)===n?'on':'')+'">'+n+' · '+l+'</span>').join('')+'</div>'+
-   '<details class="small"><summary class="muted" style="cursor:pointer">Cómo se gana XP</summary><div class="list" style="margin-top:6px"><div class="li"><span>Cada serie</span><b>10 XP (+5 si llegas al mínimo de reps)</b></div><div class="li"><span>Récord personal</span><b>50 XP</b></div><div class="li"><span>Entreno terminado (6+ series)</span><b>100 XP</b></div><div class="li"><span>Semana con 4+ entrenos</span><b>200 XP</b></div><div class="li"><span>Apuntar el peso</span><b>15 XP</b></div></div></details></div>'+
+   '<details class="small"><summary class="muted" style="cursor:pointer">Cómo se gana XP</summary><div class="list" style="margin-top:6px"><div class="li"><span>Cada serie</span><b>10 XP (+5 si llegas al mínimo de reps)</b></div><div class="li"><span>Récord personal</span><b>50 XP</b></div><div class="li"><span>Entreno terminado (6+ series)</span><b>100 XP</b></div><div class="li"><span>Semana con 4+ entrenos</span><b>200 XP</b></div><div class="li"><span>Misiones del día</span><b>hasta 130 XP</b></div><div class="li"><span>Apuntar el peso</span><b>15 XP</b></div></div></details></div>'+
    '<div class="card stack"><div class="row between"><h2>Logros</h2><span class="pill b num">'+ok+' / '+lg.length+'</span></div><div class="badges">'+lg.map(l=>'<div class="badge'+(l.ok?'':' lock')+'"><span class="ico" style="background:'+l.c+'">'+esc(l.ic)+'</span><b>'+esc(l.n)+'</b><small>'+esc(l.d)+'</small></div>').join('')+'</div></div>'+
    '<div class="card stack"><div><h2>Tus recompensas</h2><div class="small muted">Prémiate de verdad cuando llegues a cada meta.</div></div>'+(rew?'<div class="list">'+rew+'</div>':'<div class="empty">Añade tu primera recompensa abajo.</div>')+
    '<form class="stack" data-form="rew" style="gap:8px"><label class="f" for="rt">Recompensa<input id="rt" type="text" maxlength="80" placeholder="p. ej. Cena en mi sitio favorito" value="'+esc(ui.newRew.txt)+'" data-rew="txt"></label><div class="inrow"><label class="f" for="rk">Cuando llegue a<select id="rk" data-rew="tipo">'+[['nivel','Nivel'],['entrenos','Nº de entrenos'],['racha','Semanas de racha'],['peso','Peso (kg)']].map(([k,n])=>'<option value="'+k+'"'+(ui.newRew.tipo===k?' selected':'')+'>'+n+'</option>').join('')+'</select></label><label class="f" for="rv">Valor<input id="rv" type="number" step="0.5" min="1" value="'+esc(ui.newRew.v)+'" data-rew="v"></label><button class="btn primary" type="submit">Añadir</button></div></form></div></div>';
@@ -890,7 +1100,7 @@ function vEjercicios(C){
   return '<div class="stack"><div><div class="eyebrow">Biblioteca</div><h1>Ejercicios</h1></div>'+
    '<label class="f" for="q">Buscar<input id="q" type="text" data-q value="'+esc(ui.q)+'" placeholder="Nombre del ejercicio"></label>'+
    '<div class="row"><button class="chip'+(!f?' on':'')+'" data-act="filtro" data-m="">Todos</button>'+Object.keys(MUSC).map(m=>'<button class="chip'+(f===m?' on':'')+'" data-act="filtro" data-m="'+m+'">'+MUSC[m].n+'</button>').join('')+'</div>'+
-   '<div class="grid2">'+list.map(e=>{const b=C.bestSet[e.id];return '<div class="card stack" style="gap:8px"><div class="row between" style="align-items:flex-start"><h3>'+esc(e.n)+'</h3>'+(b?'<span class="pill y num">'+fmtKg(b.peso)+'×'+b.reps+'</span>':'')+'</div><div class="row">'+e.p.map(m=>'<span class="pill b">'+MUSC[m].n+'</span>').join('')+e.s.map(m=>'<span class="pill" style="border:1px solid var(--line);color:var(--muted)">'+MUSC[m].n+'</span>').join('')+'</div><div class="small muted">'+e.rmin+'–'+e.rmax+' reps · descanso '+fmtRest(e.d)+'</div><div class="small">'+esc(e.tip)+'</div>'+(activo()?'<button class="btn sm" data-act="addEj" data-e="'+e.id+'">Añadir al entreno</button>':'')+'</div>'}).join('')+'</div>'+
+   '<div class="grid2">'+list.map(e=>{const b=C.bestSet[e.id];return '<div class="card stack" style="gap:8px">'+fotoEj(e.id,'big')+'<div class="row between" style="align-items:flex-start"><h3>'+esc(e.n)+'</h3>'+(b?'<span class="pill y num">'+fmtKg(b.peso)+'×'+b.reps+'</span>':'')+'</div><div class="row">'+e.p.map(m=>'<span class="pill b">'+MUSC[m].n+'</span>').join('')+e.s.map(m=>'<span class="pill" style="border:1px solid var(--line);color:var(--muted)">'+MUSC[m].n+'</span>').join('')+'</div><div class="small muted">'+e.rmin+'–'+e.rmax+' reps · descanso '+fmtRest(e.d)+'</div><div class="small">'+esc(e.tip)+'</div>'+(activo()?'<button class="btn sm" data-act="addEj" data-e="'+e.id+'">Añadir al entreno</button>':'')+'</div>'}).join('')+'</div>'+
    (list.length?'':'<div class="empty">Ningún ejercicio coincide con la búsqueda.</div>')+'</div>';
 }
 
@@ -943,31 +1153,6 @@ function validarPaso(s){
   return null;
 }
 /* ---------- Ranking ---------- */
-function vRanking(){
-  if(!CLOUD) return '<div class="stack"><h1>Ranking</h1><div class="empty">El ranking necesita la cuenta en la nube.</div></div>';
-  if(!ui.ranking&&!ui.rkCargando&&!ui.rkError) cargarRanking();
-  const cat=ui.rkCat||'semana', lift=ui.rkLift||'banca', wk=weekKey(Date.now()), me=session&&session.user.id;
-  const rows=(ui.ranking||[]).map(r=>{
-    const d=r.data||{}, sem=d.semanaKey===wk?(d.semana||{}):{}; let v,txt,sub;
-    if(cat==='semana'){v=sem.puntos||0;txt=fmtN(v)+' pts';sub=(sem.entrenos||0)+' entrenos · '+(sem.series||0)+' series · '+(sem.prs||0)+' récords'}
-    else if(cat==='nivel'){v=d.xp||0;txt='Nv '+(d.nivel||1);sub=(d.rango||'')+' · '+fmtN(v)+' XP'}
-    else if(cat==='fuerza'){const f=(d.fuerza||{})[lift];v=f?(f.rel||0.0001):-1;txt=f&&f.rel?'×'+f.rel.toFixed(2):'—';sub=f?fmtKg(f.e1rm)+' kg de 1RM estimado':'Sin marca todavía'}
-    else if(cat==='racha'){v=d.racha||0;txt=v+' sem';sub=(d.entrenos||0)+' entrenos en total'}
-    else {v=d.prs||0;txt=v+' PR';sub='marcas personales'}
-    return {nombre:r.nombre||'Sin nombre',v,txt,sub,me:r.user_id===me};
-  }).sort((a,b)=>b.v-a.v);
-  const cats=[['semana','Esta semana'],['nivel','Nivel'],['fuerza','Fuerza'],['racha','Racha'],['records','Récords']];
-  const top=rows.slice(0,3), podOrder=[1,0,2].filter(i=>top[i]);
-  const podio=top.length?'<div class="podio">'+podOrder.map(i=>'<div class="pod pos'+(i+1)+(top[i].me?' me':'')+'"><span class="small">'+(i+1)+'º</span><span class="nm">'+esc(top[i].nombre)+(top[i].me?' (tú)':'')+'</span><b>'+esc(top[i].txt)+'</b></div>').join('')+'</div>':'';
-  const lista=rows.map((r,i)=>'<div class="rkrow'+(r.me?' me':'')+'"><b class="num">'+(i+1)+'</b><div style="min-width:0"><b>'+esc(r.nombre)+(r.me?' (tú)':'')+'</b><div class="small muted">'+esc(r.sub)+'</div></div><b class="num">'+esc(r.txt)+'</b></div>').join('');
-  const expl={semana:'Se reinicia cada lunes: 10 puntos por serie, 100 por entreno terminado y 50 por récord.',nivel:'Puntos de experiencia acumulados desde el principio.',fuerza:'Tu 1RM estimado dividido entre tu peso: así compiten igual pesos distintos.',racha:'Semanas seguidas con 4 o más entrenos.',records:'Marcas personales batidas en total.'}[cat];
-  return '<div class="stack"><div class="row between"><div><div class="eyebrow">Competición del grupo</div><h1>Ranking</h1></div><button class="btn sm" data-act="rkRefresh">'+(ui.rkCargando?'Cargando…':'Actualizar')+'</button></div>'+
-    '<div class="row" role="group" aria-label="Categoría">'+cats.map(([k,n])=>'<button class="chip'+(cat===k?' on':'')+'" data-act="rkCat" data-v="'+k+'">'+n+'</button>').join('')+'</div>'+
-    (cat==='fuerza'?'<div class="row" role="group" aria-label="Ejercicio">'+LIFTS.map(([k,n])=>'<button class="chip'+(lift===k?' on':'')+'" data-act="rkLift" data-v="'+k+'">'+n+'</button>').join('')+'</div>':'')+
-    (ui.rkError?'<div class="sug">No se pudo cargar el ranking: '+esc(ui.rkError)+'</div>':'')+
-    (rows.length?podio+'<div class="card">'+lista+'</div>':'<div class="empty">'+(ui.rkCargando?'Cargando…':'Todavía no hay nadie en el ranking. Termina un entreno y aparecerás.')+'</div>')+
-    '<p class="small muted" style="margin:0">'+expl+' En el ranking se ve tu nombre, tu nivel, tus entrenos y tus marcas. Tu peso, tus medidas y tus fotos no se ven.</p></div>';
-}
 /* ---------- Cuerpo: mapa + fotos ---------- */
 function fotoBox(f,borrable){
   const u=fotoUrl[f.path];
@@ -993,7 +1178,7 @@ function vYo(C,X){
     (N?'<div class="kpis"><div class="kpi"><b class="num">'+N.prot+' g</b><span>proteína</span></div><div class="kpi"><b class="num">'+N.carb+' g</b><span>hidratos</span></div><div class="kpi"><b class="num">'+N.grasa+' g</b><span>grasa</span></div></div><div class="small muted">Mantenimiento estimado: '+fmtN(N.mant)+' kcal. Creatina 3–5 g al día si la tomas, y 8–10 mil pasos.</div>':'<div class="small muted">Completa el test para ver tus calorías.</div>')+'</div>';
   const plan='<div class="card stack"><div><div class="eyebrow">Rutina del grupo, adaptada a ti</div><h2>Tu plan semanal</h2></div><p class="small muted" style="margin:0">Los ejercicios son los mismos para los tres (si alguien tiene una lesión se le cambia el que la carga). Las series y repeticiones son tuyas según tu nivel y objetivo; +1 serie en tus músculos prioritarios. Si cambias un ejercicio aquí, se cambia para todo el grupo.</p>'+
     '<label class="f" for="nej" style="max-width:240px">Ejercicios por día (para el grupo)<select id="nej" data-nej>'+[5,6,7,8,9].map(n=>'<option value="'+n+'"'+((+GYM.nEj||7)===n?' selected':'')+'>'+n+' ejercicios</option>').join('')+'</select></label>'+
-    DIAS_IDS.map(t=>{const pl=P(t);return '<div class="card flat stack" style="gap:4px"><div class="row between"><h3>'+pl.n+'</h3><span class="small muted">'+pl.sub+'</span></div><div class="list small">'+pl.ej.map(x=>'<div class="li"><div class="grow"><b>'+esc(EXM[x.ej].n)+'</b><div class="muted">'+x.series+' series × '+x.rmin+'–'+x.rmax+' reps'+(x.prio?' · prioridad':'')+(evitar(x.ej,p)?' · ojo con tu lesión':'')+'</div></div>'+(x.ops.length>1?'<select data-swap="'+t+'|'+x.slot+'" aria-label="Cambiar '+esc(EXM[x.ej].n)+'">'+x.ops.map(id=>'<option value="'+id+'"'+(id===x.ej?' selected':'')+'>'+esc(EXM[id].n)+'</option>').join('')+'</select>':'')+'</div>').join('')+'</div></div>'}).join('')+'</div>';
+    DIAS_IDS.map(t=>{const pl=P(t);return '<div class="card flat stack" style="gap:4px"><div class="row between"><h3>'+pl.n+'</h3><span class="small muted">'+pl.sub+'</span></div><div class="list small">'+pl.ej.map(x=>'<div class="li pl">'+fotoEj(x.ej,'th')+'<div class="grow"><b>'+esc(EXM[x.ej].n)+'</b><div class="muted">'+x.series+' series × '+x.rmin+'–'+x.rmax+' reps'+(x.prio?' · prioridad':'')+(evitar(x.ej,p)?' · ojo con tu lesión':'')+'</div></div>'+(x.ops.length>1?'<select data-swap="'+t+'|'+x.slot+'" aria-label="Cambiar '+esc(EXM[x.ej].n)+'">'+x.ops.map(id=>'<option value="'+id+'"'+(id===x.ej?' selected':'')+'>'+esc(EXM[id].n)+'</option>').join('')+'</select>':'')+'</div>').join('')+'</div></div>'}).join('')+'</div>';
   const maq='<div class="card stack"><div><div class="eyebrow">Roman Private Fitness Club · Arahal</div><h2>Máquinas del gimnasio</h2></div><p class="small muted" style="margin:0">Desmarca lo que no haya y el plan lo cambia por otro ejercicio. Es la misma lista para los tres.</p><div>'+EQUIPOS.map(e=>'<label class="chk"><input type="checkbox" data-gym="'+e.id+'"'+(GYM.eq[e.id]!==false?' checked':'')+'><span style="flex:1">'+esc(e.n)+'</span>'+(e.visto?'<span class="pill g">En tus fotos</span>':'<span class="pill y">Por confirmar</span>')+'</label>').join('')+'</div></div>';
   return '<div class="stack">'+head+comida+plan+vLogros(C,X)+maq+'<details class="card"><summary style="cursor:pointer"><b>Biblioteca de ejercicios</b></summary><div style="margin-top:12px">'+vEjercicios(C)+'</div></details>'+cuentaCard()+'</div>';
 }
@@ -1007,7 +1192,7 @@ function vLogin(){
 }
 function cuentaCard(){
   if(!CLOUD) return '<div class="card flat stack small"><h3>Sincronización</h3><div>Estás en modo local: los datos se guardan solo en este dispositivo. Para tenerlos en el PC y en el iPhone, rellena <b>config.js</b> con los datos de Supabase.</div></div>';
-  return '<div class="card flat stack small"><h3>Tu cuenta</h3><div class="row between"><span>'+esc(session&&session.user&&session.user.email||'')+'</span><button class="btn sm" data-act="salir">Cerrar sesión</button></div><span class="sync" data-sync></span></div>';
+  return '<div class="card flat stack small"><h3>Tu cuenta</h3><div class="row between"><span>'+esc(session&&session.user&&session.user.email||'')+'</span><button class="btn sm" data-act="salir">Cerrar sesión</button></div><div class="row between"><span>Sonidos y efectos</span><button class="chip'+(SONIDO?' on':'')+'" data-act="sonido" aria-pressed="'+SONIDO+'">'+(SONIDO?'Activados':'Silenciados')+'</button></div><span class="sync" data-sync></span></div>';
 }
 function render(){
   ui.enTest=false;
@@ -1015,6 +1200,8 @@ function render(){
   if(CLOUD&&!ui.loaded){ $('#app').innerHTML='<div class="empty" style="margin-top:18vh">Cargando tu cuenta…</div>'; renderTabs(); return; }
   if(ui.forceTest||!S.perfil.onboarded){ ui.enTest=true; const fo0=document.activeElement&&document.activeElement.id; $('#app').innerHTML=vTest(); renderTabs(); $('#timer').hidden=true; if(fo0){const el=document.getElementById(fo0);if(el&&el.tagName==='INPUT')el.focus()} return; }
   const C=computeAll(), X=xpInfo(C);
+  if(ui.lastL!=null&&X.L>ui.lastL&&!ui.silencioNivel) fiesta({eyebrow:'Subes de nivel',titulo:'Nivel '+X.L,sub:'Rango: '+rango(X.L),sfx:'pr'});
+  ui.lastL=X.L; ui.silencioNivel=false;
   const y=window.scrollY;
   const v=ui.view;
   const html=v==='entreno'?vEntreno(C):v==='cuerpo'?'<div class="stack">'+vMapa(C)+fotosCard()+'</div>':v==='progreso'?vProgreso(C,X):v==='ranking'?vRanking():v==='yo'?vYo(C,X):vHoy(C,X);
@@ -1024,7 +1211,7 @@ function render(){
   window.scrollTo(0,y);
   wake();
 }
-function go(v){v=ALIAS[v]||v;if(v==='ranking')cargarRanking();ui.view=v;ui.confirm=null;try{if(location.hash.slice(1)!==v)history.replaceState(null,'','#'+v)}catch(e){location.hash=v}render();window.scrollTo(0,0)}
+function go(v){v=ALIAS[v]||v;if(v==='ranking')cargarRanking();ui.view=v;ui.confirm=null;try{if(location.hash.slice(1)!==v)history.replaceState(null,'','#'+v)}catch(e){location.hash=v}render();window.scrollTo(0,0);const ap=$('#app');ap.classList.remove('enter');void ap.offsetWidth;ap.classList.add('enter');clearTimeout(go._t);go._t=setTimeout(()=>ap.classList.remove('enter'),900)}
 
 /* ===================== DESCANSO (TEMPORIZADOR) ===================== */
 let actx=null;
@@ -1071,15 +1258,20 @@ function act(el){
   if(a==='masSerie'&&A){const x=JSON.parse(JSON.stringify(A));x.ejercicios[+el.dataset.x].series_obj++;saveEntreno(x);return render()}
   if(a==='delSet'&&A){const x=JSON.parse(JSON.stringify(A));x.ejercicios[+el.dataset.x].series.splice(+el.dataset.s,1);saveEntreno(x);return render()}
   if(a==='terminar'&&A){
-    const before=xpInfo(computeAll()).xp;
+    const tmpE=S.entrenos[A.id]; delete S.entrenos[A.id]; const before=xpInfo(computeAll()).xp; S.entrenos[A.id]=tmpE;
     const x=JSON.parse(JSON.stringify(A));x.fin=Date.now();
     const n=x.ejercicios.reduce((s,y)=>s+y.series.length,0);
     if(!n){delEntreno(x.id);ui.confirm=null;timer=null;toast('Entreno vacío descartado');return go('hoy')}
     x.ejercicios=x.ejercicios.filter(y=>y.series.length);
     saveEntreno(x);const C=computeAll();const after=xpInfo(C).xp;
     const prs=[...C.prs].filter(k=>k.startsWith(x.id+'|')).length;
-    ui.resumen={series:n,vol:x.ejercicios.reduce((s,y)=>s+y.series.reduce((t,z)=>t+z.peso*z.reps,0),0),xp:after-before,prs};
-    ui.confirm=null;timer=null;ui.draft={};return go('hoy');
+    const vol=x.ejercicios.reduce((s,y)=>s+y.series.reduce((t,z)=>t+z.peso*z.reps,0),0), M=misionesDe(x), Xa=xpInfo(C), lin=[];
+    if(prs) lin.push('🏅 '+prs+' récord'+(prs>1?'s':'')+' personal'+(prs>1?'es':''));
+    M.L.filter(m=>m.ok).forEach(m=>lin.push('✓ '+m.t+' <b>+'+m.xp+' XP</b>'));
+    if(ui.lastL!=null&&Xa.L>ui.lastL) lin.push('⬆️ ¡Subes al <b>nivel '+Xa.L+'</b>! Rango: '+rango(Xa.L));
+    ui.lastL=Xa.L; ui.resumen=null; ui.confirm=null;timer=null;ui.draft={};go('hoy');
+    fiesta({eyebrow:'Entreno completado',titulo:x.nombre,kpis:[[String(n),'series'],[fmtN(vol),'kg movidos'],['+'+(after-before),'XP']],lineas:lin,boton:'¡Vamos!'});
+    return;
   }
   if(a==='descartar'&&A){delEntreno(A.id);ui.confirm=null;timer=null;ui.draft={};toast('Entreno descartado');return go('hoy')}
   if(a==='delEntreno'){delEntreno(el.dataset.id);ui.confirm=null;toast('Entreno borrado');return render()}
@@ -1095,6 +1287,9 @@ function act(el){
     if(!S.pesos[hoyK()])savePeso(hoyK(),Math.round(+t.peso*10)/10);
     savePerfil();ui.td=null;ui.ts=1;ui.forceTest=false;toast('¡Plan listo!');return go('hoy')}
   if(a==='repetirTest'){ui.forceTest=true;ui.td=null;ui.ts=1;render();window.scrollTo(0,0);return}
+  if(a==='fxCerrar'){const f=document.getElementById('fx');if(f){f.hidden=true;f.innerHTML=''}return}
+  if(a==='sonido'){SONIDO=!SONIDO;try{localStorage.setItem('forja.sonido',SONIDO?'1':'0')}catch(e){}if(SONIDO)sonido('set');return render()}
+  if(a==='rkRival'){ui.rkRival=el.dataset.v;return render()}
   if(a==='rkCat'){ui.rkCat=el.dataset.v;return render()}
   if(a==='rkLift'){ui.rkLift=el.dataset.v;return render()}
   if(a==='rkRefresh'){programarRanking();cargarRanking();return render()}
@@ -1129,7 +1324,9 @@ document.addEventListener('submit',ev=>{
     const e=EXM[ej.ej];const C=computeAll();const pr=C.prs.has(x.id+'|'+xi+'|'+(ej.series.length-1));
     const quedan=ej.series_obj-ej.series.length;
     startTimer(e.d,e.n+(quedan>0?' · quedan '+quedan:' · ejercicio completo'));
-    if(pr)toast('¡Récord personal en '+e.n+'! +50 XP');
+    const okMin=r>=ej.rmin;
+    if(pr){toast('¡Récord personal en '+e.n+'! +50 XP');confeti(70);sonido('pr');flotar('+'+((okMin?15:10)+50)+' XP')}
+    else {sonido('set');flotar('+'+(okMin?15:10)+' XP')}
     render();return}
   if(k==='peso'){const v=parseFloat(String($('#pesoHoy').value).replace(',','.'));if(!(v>=40&&v<=200)){toast('Escribe un peso entre 40 y 200 kg.');return}savePeso(hoyK(),Math.round(v*10)/10);toast('Peso guardado');render();return}
   if(k==='pesoFecha'){const fe=$('#pf').value,v=parseFloat(String($('#pk').value).replace(',','.'));if(!fe||!(v>=40&&v<=200)){toast('Pon una fecha y un peso entre 40 y 200 kg.');return}savePeso(fe,Math.round(v*10)/10);toast('Peso añadido');render();return}
