@@ -1,5 +1,5 @@
 // Forja Gym: permite abrir la app sin cobertura (en el gimnasio). Siempre intenta la versión nueva primero.
-const CACHE = 'forja-v8';
+const CACHE = 'forja-v9';
 const BASE = ['./', './index.html', './config.js', './manifest.json', './icon-192.png', './apple-touch-icon.png',
   './supabase.js?v=2.45.4', './591.supabase.js'];
 self.addEventListener('install', e => {
