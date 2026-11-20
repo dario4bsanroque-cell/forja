@@ -2357,6 +2357,8 @@ const FZ={banca:['k','bench'],'inclinado-manc':['k','dbincl'],'inclinado-maq':['
  'patada-gluteo':['k','ckick'],'puente-gluteo':['k','hipth',.9,1],'peso-muerto-sumo':['k','sumo'],'gemelos-prensa':['k','calf',1.2,1],crunch:['r','r_crunch'],'crunch-inverso':['r','r_crunch',.6,1],
  'crunch-maq':['k','ccrunch'],'elev-rodillas':['r',[3,10,20,30,42],1,1],plancha:['s',[15,40,90,150,240],1,1],'plancha-lateral':['s',[10,25,50,90,140],1,1],lenador:['k',[8,15,25,37,50],1,1],
  'giros-rusos':['r',[10,25,45,70,100],1,1],bicicleta:['r',[10,25,45,70,100],1,1]};
+// Ejercicios añadidos por el grupo (sin dato oficial exacto: estimados de los más parecidos)
+Object.assign(FZ,{'u-extenxion-de-tricep-con-manc-egnk':['k','dbtri'],'u-press-militar-en-smith-mj3s':['k','ohp',1.05,1],'u-extension-de-triceps-a-una-m-ftwt':['k','pushdown',.5,1]});
 const TIERS=[['Hierro','#8a8f98'],['Bronce','#c07a3b'],['Plata','#a9b6c2'],['Oro','#e9ad00'],['Platino','#2fbfb0'],['Diamante','#6c8cff']];
 const PCTS=[5,20,50,80,95];
 function pesoCorp(){const u=ultimoPeso();return (u&&u.kg)||+S.perfil.peso||0}
