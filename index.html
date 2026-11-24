@@ -2618,14 +2618,13 @@ function nivelPill(a){return a&&a.nivel&&NIVELES[a.nivel]?'<span class="pill niv
 /* ===================== v8: RANGOS MÁS DINÁMICOS ===================== */
 const BANDAS=[0,5,20,50,80,95,100];
 function divDe(p){const t=tierDePct(p),lo=BANDAS[t],hi=BANDAS[t+1],f=clamp((p-lo)/Math.max(1,hi-lo),0,.9999),d=Math.floor(f*3);return {t,div:['III','II','I'][d],lp:Math.round((f*3-d)*100),nom:TIERS[t][0]+' '+['III','II','I'][d]}}
-const _fzMemo={};
+const _fzMemo={}, _fzWM=new WeakMap();
 const _fuerzaTodo0=fuerzaTodo;
-fuerzaTodo=function(C,hasta){
-  const bw=pesoCorp(), k=C.sets.length+'|'+(C.sets.length?C.sets[C.sets.length-1].t:0)+'|'+(hasta||0)+'|'+bw+'|'+EX.length;
-  if(_fzMemo[k]) return _fzMemo[k];
-  const C2=hasta?Object.assign({},C,{sets:C.sets.filter(s=>s.t<hasta)}):C, F=_fuerzaTodo0(C2);
-  if(Object.keys(_fzMemo).length>40) for(const kk in _fzMemo) delete _fzMemo[kk];
-  return _fzMemo[k]=F;
+fuerzaTodo=function(C,hasta){ // caché por cálculo: si se edita una serie, computeAll() da datos nuevos y se recalcula
+  const bw=pesoCorp(), k=(hasta||0)+'|'+bw+'|'+EX.length; let m=_fzWM.get(C.sets); if(!m){m={};_fzWM.set(C.sets,m)}
+  if(m[k]) return m[k];
+  const C2=hasta?Object.assign({},C,{sets:C.sets.filter(s=>s.t<hasta)}):C;
+  return m[k]=_fuerzaTodo0(C2);
 };
 function objetivoSubir(id,st,n){
   if(!n||!n.next) return '';
